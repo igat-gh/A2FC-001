@@ -1,0 +1,25 @@
+{
+  "name": "weather",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack --progress --profile --colors --watch",
+    "build": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/igat-gh/A2FC-001.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/core-js": "^0.9.34",
+    "ts-loader": "^1.2.2",
+    "tslint": "^4.0.1",
+    "tslint-loader": "^3.1.0",
+    "typescript": "^2.0.10",
+    "webpack": "^1.13.3"
+  }
+}

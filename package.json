@@ -12,7 +12,7 @@
     "type": "git",
     "url": "git+https://github.com/igat-gh/A2FC-001.git"
   },
-  "author": "",
+  "author": "igor.atroshkin@gmail.com",
   "license": "ISC",
   "devDependencies": {
     "ts-loader": "^1.2.2",
@@ -22,7 +22,8 @@
     "webpack": "^1.13.3"
   },
   "dependencies": {
-    "@types/whatwg-fetch": "0.0.32",
-    "@types/core-js": "^0.9.34"  
+    "@types/core-js": "^0.9.34",
+    "@types/google-maps": "^3.1.28",
+    "@types/whatwg-fetch": "0.0.32"
   }
 }

@@ -1,23 +1,32 @@
-import { getCurrentPosition, Geoposition, PositionError } from "./geolocationService"
-import { getWeatherForCitiesInCycle } from './weatherService'
+import { getCurrentPosition, Geoposition, PositionError } from "./geolocation"
+import { getWeatherForCitiesInCycle, WeatherResponse } from "./weather"
+import { initMap } from "./googlemap"
 
-const apiKey = "ddb1f0abb0c8107ef81e20d834d797a2"
+// App configuration //
+const weatherMapsApiKey = "ddb1f0abb0c8107ef81e20d834d797a2"
+// const googleMapsApiKey = "AIzaSyD8cRmrddIZI_FMfQgfEod4SBxnXzZYHuU"
+const citiesInCycleCount = 50
+const appContainerId = "app"
+//////////////////////
+
+// Utils and helpers //
+const geoposotionToWeatherOptions = (citiesCount: number) =>
+  ({ coords: { latitude: lat }, coords: { longitude: lon }}: Geoposition) =>
+    ({ lat, lon, cnt: citiesCount })
+//////////////////////
+
+const weatherInCycle = getWeatherForCitiesInCycle(weatherMapsApiKey)
+
+const map = initMap(document.getElementById(appContainerId), { center: {lat: 0, lng: 0}, zoom: 4 })
+
+console.log(map)
 
 getCurrentPosition()
-  .catch((error: PositionError) => {
-    console.log(error)
-  })
-  .then((position: Geoposition) => {
-    const options = {
-      lat: position.coords.latitude,
-      lon: position.coords.longitude,
-      cnt: 50
-     }
-    return getWeatherForCitiesInCycle(apiKey, options)
-  })
-  .catch(error => {
-    console.log(error)
-  })
-  .then((data) => {
+  .then(geoposotionToWeatherOptions(citiesInCycleCount))
+  .then(weatherInCycle)
+  .then((data: WeatherResponse) => {
     console.log(data)
+  })
+  .catch((error: PositionError | Error) => {
+    console.log(error)
   })

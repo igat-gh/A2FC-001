@@ -4,7 +4,6 @@ import { initMap } from "./googlemap"
 
 // App configuration //
 const weatherMapsApiKey = "ddb1f0abb0c8107ef81e20d834d797a2"
-// const googleMapsApiKey = "AIzaSyD8cRmrddIZI_FMfQgfEod4SBxnXzZYHuU"
 const citiesInCycleCount = 50
 const appContainerId = "app"
 //////////////////////

@@ -7,9 +7,9 @@ interface CitiesInCycleOptions {
 
 type UrlParams = CitiesInCycleOptions
 
-type CityWeather = {
+export type CityWeather = {
   clouds: { all: number },
-  wind: { deg: number, speed: number },
+  wind: { deg: number, speed: number, gust: number },
   coord: { lat: number, lon: number },
   main: {
     humidity: number,
@@ -18,6 +18,11 @@ type CityWeather = {
     temp_max: number,
     temp_min: number
   },
+  weather: {
+    description: string,
+    icon: string,
+    main: string
+  }[],
   name: string,
   dt: number,
   id: number
@@ -31,6 +36,8 @@ export type WeatherResponse = {
 }
 
 const API_URL = "http://api.openweathermap.org/data/2.5/"
+
+export const iconsRoot = "http://openweathermap.org/img/w/"
 
 export const getWeatherForCitiesInCycle = (apiKey: string) =>
   (options: CitiesInCycleOptions) => {

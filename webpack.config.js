@@ -1,17 +1,25 @@
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
 const path = require('path');
 
 module.exports = {
-  entry: path.resolve(__dirname + '/src/index.ts'),
+  entry: path.join(__dirname + '/src/index.ts'),
   output: {
-    filename: path.resolve(__dirname + '/dist/bundle.js')
+    path: path.join(__dirname, '/dist'),
+    filename: 'bundle.js'
   },
   devtool: 'source-map',
   resolve: {
     extensions: ['', '.ts']
   },
   plugins: [
-    new webpack.optimize.UglifyJsPlugin()
+    new webpack.optimize.UglifyJsPlugin(),
+    new CopyWebpackPlugin([
+      {
+        from: path.join(__dirname + '/assets'),
+        to: path.join(__dirname + '/dist'),
+      }
+    ])
   ],
   module: {
     preLoaders: [

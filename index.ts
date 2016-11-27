@@ -1,4 +1,4 @@
-import App from "./src"
+import App from "./src/app"
 
 const app = new App()
 

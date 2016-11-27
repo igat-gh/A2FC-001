@@ -1,6 +1,6 @@
 
-interface IGeoOptions {
-  enableHighAccuracy: boolean
+type GeoOptions = {
+  enableHighAccuracy?: boolean
 }
 
 type GeopositionResponse = Geoposition | PositionError
@@ -17,12 +17,12 @@ export type PositionError= {
   message: string
 }
 
-const defaultOptions: IGeoOptions = {
+const defaultOptions: GeoOptions = {
   enableHighAccuracy: true
 }
 
 export const getCurrentPosition =
-  (options: IGeoOptions = defaultOptions): Promise<GeopositionResponse> => {
+  (options: GeoOptions = defaultOptions): Promise<GeopositionResponse> => {
     return new Promise((resolve, reject) => {
       const success = (position: Geoposition): void => resolve(position)
       const failure = (error: PositionError): void => reject(error)

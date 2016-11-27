@@ -3,9 +3,9 @@ import { getWeatherForCitiesInCycle, buildIconURL, WeatherResponse, CityWeather 
 import { initMap, drawIcons } from "./googlemap"
 
 // Utils and helpers //
-const geoposotionToWeatherOptions = (citiesCount: number) =>
+const geoposotionToWeatherCoords =
   ({ coords: { latitude: lat }, coords: { longitude: lon }}: Geoposition) =>
-    ({ lat, lon, cnt: citiesCount })
+    ({ lat, lon })
 
 
 const cityWeatherToGeoJSON = (weatherItem: CityWeather) => {
@@ -31,7 +31,6 @@ const cityWeatherToGeoJSON = (weatherItem: CityWeather) => {
       }
     }
 }
-//////////////////////
 
 const renderCitiesWeather = (weather: CityWeather[], rootId: string) => {
   const root = document.getElementById(rootId)
@@ -44,13 +43,13 @@ const renderCitiesWeather = (weather: CityWeather[], rootId: string) => {
   `
   root.innerHTML = weather.map(weatherToTemplate).join("")
 }
+//////////////////////
 
 
 type AppConfig = {
   WEATHER_API_KEY: string,
   MAP_CONTAINER_ID: string,
-  LIST_CONTAINER_ID: string,
-  CITIES_IN_CYCLE_COUNT: number
+  LIST_CONTAINER_ID: string
 }
 
 export default class App {
@@ -62,8 +61,7 @@ export default class App {
   static defaults = {
     WEATHER_API_KEY: "ddb1f0abb0c8107ef81e20d834d797a2",
     MAP_CONTAINER_ID: "map",
-    LIST_CONTAINER_ID: "cities-list",
-    CITIES_IN_CYCLE_COUNT: 50
+    LIST_CONTAINER_ID: "cities-list"
   }
 
   constructor(config?: Object) {
@@ -82,9 +80,11 @@ export default class App {
         const { latitude: lat, longitude: lng } = this.geoposition.coords
         this.map.setCenter({ lat, lng })
         this.map.setZoom(12)
-        return geoposotionToWeatherOptions(this.cfg.CITIES_IN_CYCLE_COUNT)(position)
+        return geoposotionToWeatherCoords(position)
       })
-      .then(getWeatherForCitiesInCycle(this.cfg.WEATHER_API_KEY))
+      .then((coords) => {
+        return getWeatherForCitiesInCycle(this.cfg.WEATHER_API_KEY, coords)
+      })
       .then((data: WeatherResponse) => {
         this.weather = data.list
       })

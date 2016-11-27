@@ -37,17 +37,20 @@ export type WeatherResponse = {
 
 const API_URL = "http://api.openweathermap.org/data/2.5/"
 
-export const iconsRoot = "http://openweathermap.org/img/w/"
+export const ICONS_ROOT = "http://openweathermap.org/img/w/"
 
 export const getWeatherForCitiesInCycle = (apiKey: string) =>
   (options: CitiesInCycleOptions) => {
     const resourse = "find"
-    const url = buildURL(apiKey, resourse, options)
+    const url = buildResourseURL(apiKey, resourse, options)
 
     return fetch(url).then((response) => response.json())
   }
 
-const buildURL = (apiKey: string, resourse: string, params: UrlParams) => {
+export const buildIconURL = (weather: CityWeather): string =>
+  `${ICONS_ROOT}${weather.weather[0].icon}.png`
+
+const buildResourseURL = (apiKey: string, resourse: string, params: UrlParams) => {
   const endpointWithApiKey = `${API_URL}${resourse}?appid=${apiKey}&`
   const searchParams = Object.keys(params).map(key => `${key}=${params[key]}`).join('&')
 

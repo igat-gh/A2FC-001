@@ -1,12 +1,6 @@
 import { getCurrentPosition, Geoposition, PositionError } from "./geolocation"
-import { getWeatherForCitiesInCycle, WeatherResponse, CityWeather } from "./weather"
+import { getWeatherForCitiesInCycle, buildIconURL, WeatherResponse, CityWeather } from "./weather"
 import { initMap, drawIcons } from "./googlemap"
-
-// App configuration //
-const weatherApiKey = "ddb1f0abb0c8107ef81e20d834d797a2"
-const citiesInCycleCount = 50
-const appContainerId = "app"
-//////////////////////
 
 // Utils and helpers //
 const geoposotionToWeatherOptions = (citiesCount: number) =>
@@ -28,7 +22,7 @@ const cityWeatherToGeoJSON = (weatherItem: CityWeather) => {
         windSpeed: weatherItem.wind.speed,
         windDegrees: weatherItem.wind.deg,
         windGust: weatherItem.wind.gust,
-        icon: `http://openweathermap.org/img/w/${weatherItem.weather[0].icon}.png`,
+        icon: buildIconURL(weatherItem),
         coordinates: [ weatherItem.coord.lon, weatherItem.coord.lat ]
       },
       geometry: {
@@ -39,36 +33,71 @@ const cityWeatherToGeoJSON = (weatherItem: CityWeather) => {
 }
 //////////////////////
 
-const map = initMap(document.getElementById(appContainerId), { center: {lat: 0, lng: 0}, zoom: 4 })
-
-type State = {
-  map?: google.maps.Map,
-  geoposition?: Geoposition,
-  weather?: CityWeather[]
+const renderCitiesWeather = (weather: CityWeather[], rootId: string) => {
+  const root = document.getElementById(rootId)
+  const weatherToTemplate = (item: CityWeather) => `
+    <li class="list-group-item">
+      <span class="badge">${item.main.temp}</span>
+      <img width="25" height="25" src="${buildIconURL(item)}"/>
+      <span>${item.name}</span>
+    </li>
+  `
+  root.innerHTML = weather.map(weatherToTemplate).join("")
 }
 
-const state: State = {
-  map: map,
-  geoposition: null,
-  weather: []
+
+type AppConfig = {
+  WEATHER_API_KEY: string,
+  MAP_CONTAINER_ID: string,
+  LIST_CONTAINER_ID: string,
+  CITIES_IN_CYCLE_COUNT: number
 }
 
-getCurrentPosition()
-  .then((position: Geoposition) => {
-    state.geoposition = position
-    const { latitude: lat, longitude: lng } = state.geoposition.coords
-    map.setCenter({ lat, lng })
-    map.setZoom(12)
-    return geoposotionToWeatherOptions(citiesInCycleCount)(position)
-  })
-  .then((weatherOptions) => {
-    return getWeatherForCitiesInCycle(weatherApiKey)(weatherOptions)
-  })
-  .then((data: WeatherResponse) => {
-    state.weather = data.list
-    console.log(data)
-    data.list.map(cityWeatherToGeoJSON).forEach(drawIcons.bind(null, map))
-  })
-  .catch((error: PositionError | Error) => {
-    console.log(error)
-  })
+export default class App {
+  geoposition: Geoposition
+  weather: CityWeather[]
+  map: google.maps.Map
+  cfg: AppConfig
+
+  static defaults = {
+    WEATHER_API_KEY: "ddb1f0abb0c8107ef81e20d834d797a2",
+    MAP_CONTAINER_ID: "map",
+    LIST_CONTAINER_ID: "cities-list",
+    CITIES_IN_CYCLE_COUNT: 50
+  }
+
+  constructor(config?: Object) {
+    this.cfg = Object.assign({}, App.defaults, config)
+  }
+
+  run() {
+    this.map = initMap(
+      document.getElementById(this.cfg.MAP_CONTAINER_ID),
+      { center: { lat: 0, lng: 0 }, zoom: 4 }
+    )
+
+    getCurrentPosition()
+      .then((position: Geoposition) => {
+        this.geoposition = position
+        const { latitude: lat, longitude: lng } = this.geoposition.coords
+        this.map.setCenter({ lat, lng })
+        this.map.setZoom(12)
+        return geoposotionToWeatherOptions(this.cfg.CITIES_IN_CYCLE_COUNT)(position)
+      })
+      .then(getWeatherForCitiesInCycle(this.cfg.WEATHER_API_KEY))
+      .then((data: WeatherResponse) => {
+        this.weather = data.list
+      })
+      .then(() => {
+        // Data rendering
+        renderCitiesWeather(this.weather, this.cfg.LIST_CONTAINER_ID)
+        drawIcons(this.map, {
+          type: 'FeatureCollection',
+          features: this.weather.map(cityWeatherToGeoJSON)
+        })
+      })
+      .catch((error: PositionError | Error) => {
+        console.error(error)
+      })
+  }
+}

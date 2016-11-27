@@ -22,5 +22,5 @@ export const initMap =
   }
 
 export const drawIcons =
-  (map: google.maps.Map, geoJSONItems: Object) =>
-    (map.data.addGeoJson(geoJSONItems), map)
+  (map: google.maps.Map, geoJSON: Object) =>
+    (map.data.addGeoJson(geoJSON), map)

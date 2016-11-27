@@ -60,21 +60,42 @@ html, body {
     height: 100%;
 }
 
-#app {
+#map {
     height: 100%;
     width: 100%;
 }
 
+.main-container {
+  height: 100%;
+  width: calc(100% - 300px);
+  margin-left: 300px;
+}
 
+.cities-container {
+    width: 300px;
+    position: fixed;
+    top: 51px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: #f5f5f5;
+    border-right: 1px solid #eee;
+}
 
-
-
-
-
-
-
-
-
+.map-container {
+    position: fixed;
+    display: block;
+    width: calc(100% - 300px);
+    top: 51px;
+    left: 300px;
+    bottom: 0;
+    z-index: 1000;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
 
 
 /* ==========================================================================

@@ -1,9 +1,8 @@
-
 export type Lang = "ru" | "en"
 export type Units = "metric" | "imperial" | "standard"
 export type UrlParams = ICitiesInCycleOptions
 
-export interface ICityWeather {
+export interface ICityForecast {
   clouds: { all: number },
   wind: { deg: number, speed: number, gust: number },
   coord: { lat: number, lon: number },
@@ -35,9 +34,9 @@ export interface ICitiesInCycleOptions extends IBaseOptions {
 }
 
 
-export interface IWeatherResponse {
+export interface IOWResponse {
   cod: string,
   count: number,
   message: string,
-  list: ICityWeather[]
+  list: ICityForecast[]
 }

@@ -1,14 +1,14 @@
 import { IGeoposition } from "./../geolocation/model"
 
-import { ICityWeather } from "./../weather/model"
-import { buildIconURL } from "./../weather"
+import { ICityForecast } from "./../openweather/model"
+import { buildIconURL } from "./../openweather"
 
-export const geoposotionToWeatherCoords =
+export const geoposotionToOWCoords =
   ({ coords: { latitude: lat }, coords: { longitude: lon }}: IGeoposition) =>
     ({ lat, lon })
 
 
-export const cityWeatherToGeoJSON = (weatherItem: ICityWeather) => {
+export const forecastToGeoJSON = (weatherItem: ICityForecast) => {
   return {
       type: "Feature",
       properties: {
@@ -32,9 +32,9 @@ export const cityWeatherToGeoJSON = (weatherItem: ICityWeather) => {
     }
 }
 
-export const renderCitiesWeather = (weather: ICityWeather[], rootId: string) => {
+export const renderCitiesForecast = (weather: ICityForecast[], rootId: string) => {
   const root = document.getElementById(rootId)
-  const weatherToTemplate = (item: ICityWeather) => `
+  const weatherToTemplate = (item: ICityForecast) => `
     <li class="list-group-item">
       <span class="badge">${item.main.temp}</span>
       <img width="25" height="25" src="${buildIconURL(item)}"/>

@@ -1,4 +1,4 @@
-import { IBaseOptions, ICitiesInCycleOptions, ICityWeather, UrlParams } from "./model"
+import { IBaseOptions, ICitiesInCycleOptions, ICityForecast, UrlParams } from "./model"
 
 const API_URL: string = "http://api.openweathermap.org/data/2.5/"
 const ICONS_ROOT: string = "http://openweathermap.org/img/w/"
@@ -14,7 +14,7 @@ export const getWeatherForCitiesInCycle =
     return fetch(url).then((response) => response.json())
   }
 
-export const buildIconURL = (weather: ICityWeather): string =>
+export const buildIconURL = (weather: ICityForecast): string =>
   `${ICONS_ROOT}${weather.weather[0].icon}.png`
 
 const buildResourseURL = (apiKey: string, resourse: string, params: UrlParams): string => {

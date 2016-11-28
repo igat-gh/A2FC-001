@@ -7,9 +7,9 @@ const baseOptions: IBaseOptions = { lang: "ru", units: "metric", cnt: 50 }
 
 export const getWeatherForCitiesInCycle =
   (apiKey: string, options: ICitiesInCycleOptions) => {
-    const resourse = "find"
+    const resource = "find"
     const requestOptions: ICitiesInCycleOptions = Object.assign({}, baseOptions, options)
-    const url = buildResourseURL(apiKey, resourse, requestOptions)
+    const url = buildResourceURL(apiKey, resource, requestOptions)
 
     return fetch(url).then((response) => response.json())
   }
@@ -17,8 +17,8 @@ export const getWeatherForCitiesInCycle =
 export const buildIconURL = (weather: ICityForecast): string =>
   `${ICONS_ROOT}${weather.weather[0].icon}.png`
 
-const buildResourseURL = (apiKey: string, resourse: string, params: UrlParams): string => {
-  const endpointWithApiKey = `${API_URL}${resourse}?appid=${apiKey}&`
+const buildResourceURL = (apiKey: string, resource: string, params: UrlParams): string => {
+  const endpointWithApiKey = `${API_URL}${resource}?appid=${apiKey}&`
   const searchParams = Object.keys(params).map(key => `${key}=${params[key]}`).join('&')
 
   return endpointWithApiKey + searchParams

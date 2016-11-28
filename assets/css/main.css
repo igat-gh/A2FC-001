@@ -85,6 +85,15 @@ html, body {
     border-right: 1px solid #eee;
 }
 
+.cities-container .list-group-item,
+.cities-container .list-group-item:first-child {
+    border-radius: 0;
+    margin-bottom: 0;
+    background-color: #f8f8f8;
+    border: none;
+    border-bottom: 1px solid #ddd;
+}
+
 .map-container {
     position: fixed;
     display: block;

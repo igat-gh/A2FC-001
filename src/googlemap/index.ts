@@ -11,7 +11,7 @@ interface IGoogleMapOptions {
 }
 
 export const initMap =
-  (element: HTMLElement, options: IGoogleMapOptions) => {
+  (element: HTMLElement, options: google.maps.MapOptions): google.maps.Map => {
     const map = new google.maps.Map(element, options)
 
     map.data.setStyle((feature) => ({

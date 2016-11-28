@@ -1,68 +1,23 @@
+import { IBaseOptions, ICitiesInCycleOptions, ICityWeather, UrlParams } from "./model"
 
-type BaseOptions = {
-  lang?: Lang,
-  units?: Units,
-  cnt?: number
-}
+const API_URL: string = "http://api.openweathermap.org/data/2.5/"
+const ICONS_ROOT: string = "http://openweathermap.org/img/w/"
 
-type CitiesInCycleOptions = {
-  lat: number,
-  lon: number
-} & BaseOptions
-
-type Lang = "ru" | "en"
-
-type Units = "metric" | "imperial" | "standard"
-
-type UrlParams = CitiesInCycleOptions
-
-export type CityWeather = {
-  clouds: { all: number },
-  wind: { deg: number, speed: number, gust: number },
-  coord: { lat: number, lon: number },
-  main: {
-    humidity: number,
-    pressure: number,
-    temp: number,
-    temp_max: number,
-    temp_min: number
-  },
-  weather: {
-    description: string,
-    icon: string,
-    main: string
-  }[],
-  name: string,
-  dt: number,
-  id: number
-}
-
-export type WeatherResponse = {
-  cod: string,
-  count: number,
-  message: string,
-  list: CityWeather[]
-}
-
-const API_URL = "http://api.openweathermap.org/data/2.5/"
-
-export const ICONS_ROOT = "http://openweathermap.org/img/w/"
-
-const defaultBaseOptions: BaseOptions = { lang: "ru", units: "metric", cnt: 50 }
+const baseOptions: IBaseOptions = { lang: "ru", units: "metric", cnt: 50 }
 
 export const getWeatherForCitiesInCycle =
-  (apiKey: string, options: CitiesInCycleOptions) => {
+  (apiKey: string, options: ICitiesInCycleOptions) => {
     const resourse = "find"
-    const requestOptions: CitiesInCycleOptions = Object.assign({}, defaultBaseOptions, options)
+    const requestOptions: ICitiesInCycleOptions = Object.assign({}, baseOptions, options)
     const url = buildResourseURL(apiKey, resourse, requestOptions)
 
     return fetch(url).then((response) => response.json())
   }
 
-export const buildIconURL = (weather: CityWeather): string =>
+export const buildIconURL = (weather: ICityWeather): string =>
   `${ICONS_ROOT}${weather.weather[0].icon}.png`
 
-const buildResourseURL = (apiKey: string, resourse: string, params: UrlParams) => {
+const buildResourseURL = (apiKey: string, resourse: string, params: UrlParams): string => {
   const endpointWithApiKey = `${API_URL}${resourse}?appid=${apiKey}&`
   const searchParams = Object.keys(params).map(key => `${key}=${params[key]}`).join('&')
 

@@ -1,4 +1,3 @@
-
 export interface IGeoposition {
   coords: {
     latitude: number,
@@ -14,5 +13,3 @@ export interface IPositionError {
   code: number,
   message: string
 }
-
-export type GeopositionResponse = IGeoposition | IPositionError

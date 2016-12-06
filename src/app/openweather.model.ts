@@ -28,11 +28,11 @@ export interface IBaseOptions {
   units?: Units,
   cnt?: number
 }
+
 export interface ICitiesInCycleOptions extends IBaseOptions {
   lat: number,
   lon: number
 }
-
 
 export interface IOWResponse {
   cod: string,

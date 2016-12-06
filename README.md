@@ -1,12 +1,10 @@
-# A2FC-001
+# A2FC-002
 
 ## Installation
 `npm install`
 
-## Development build
-`npm run dev`
-
-## Production build
+## Build
 `npm run build`
 
-open in your browser `dist/index.html`
+## Development build
+`npm run dev`

@@ -60,22 +60,26 @@ html, body {
     height: 100%;
 }
 
-#map {
-    height: 100%;
-    width: 100%;
+body {
+  padding: 51px 0;
 }
 
-.main-container {
+.app {
+  height: 100%;
+  width: 100%;
+}
+
+.main {
   height: 100%;
   width: calc(100% - 300px);
   margin-left: 300px;
 }
 
-.cities-container {
+.main .sidebar {
     width: 300px;
     position: fixed;
     top: 51px;
-    bottom: 0;
+    bottom: 51px;
     left: 0;
     z-index: 1000;
     display: block;
@@ -85,8 +89,8 @@ html, body {
     border-right: 1px solid #eee;
 }
 
-.cities-container .list-group-item,
-.cities-container .list-group-item:first-child {
+.main .sidebar .list-group-item,
+.main .sidebar .list-group-item:first-child {
     border-radius: 0;
     margin-bottom: 0;
     background-color: #f8f8f8;
@@ -94,18 +98,33 @@ html, body {
     border-bottom: 1px solid #ddd;
 }
 
-.map-container {
+.map {
     position: fixed;
     display: block;
     width: calc(100% - 300px);
     top: 51px;
     left: 300px;
-    bottom: 0;
+    bottom: 51px;
     z-index: 1000;
     overflow-x: hidden;
     overflow-y: hidden;
 }
+#map {
+    height: 100%;
+    width: 100%;
+}
 
+.footer .navbar {
+  margin-bottom: 0px;
+}
+
+.footer .container-fluid {
+  text-align: center;
+}
+
+.footer .copyright {
+  margin-top: 15px;
+}
 
 /* ==========================================================================
    Media Queries

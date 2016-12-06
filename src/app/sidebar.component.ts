@@ -8,7 +8,7 @@ import { ICityForecast } from "./openweather.model"
     <div class="sidebar">
       <ul class="list-group" id="cities-list">
         <li *ngFor="let item of forecast" class="list-group-item">
-          <span class="badge">{{item.main.temp}}</span>
+          <span class="badge">{{item.main.temp | number: '1.2-2'}}</span>
           <img width="25" height="25" src="{{getIconURL(item)}}"/>
           <span>{{item.name}}</span>
         </li>

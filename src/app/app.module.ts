@@ -1,5 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser'
+
 import { NgModule } from '@angular/core'
+import { AgmCoreModule } from 'angular2-google-maps/core'
+
 import { AppComponent } from './app.component'
 import { LayoutComponent } from './layout.component'
 import { HeaderComponent } from './header.component'
@@ -8,9 +11,10 @@ import { MainComponent } from './main.component'
 import { SidebarComponent } from './sidebar.component'
 import { MapComponent } from './googlemap.component'
 
+
 @NgModule({
   bootstrap: [ AppComponent ],
-  imports: [ BrowserModule ],
+  imports: [ BrowserModule, AgmCoreModule.forRoot() ],
   declarations: [
     AppComponent,
     LayoutComponent,

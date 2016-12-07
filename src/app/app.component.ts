@@ -4,7 +4,7 @@ import { OpenWeatherService } from './openweather.service'
 // import { GoogleMapService } from './googlemap.service'
 
 import { IGeoposition } from "./geolocation.model"
-import { ICityForecast, IOWResponse, ICitiesInCycleOptions } from "./openweather.model"
+import { ICityWeather, IOWResponse, ICitiesInCycleOptions } from "./openweather.model"
 
 import { geoposotionToOWCoords } from './app.helpers'
 
@@ -21,55 +21,47 @@ import 'app/app.component.css'
       </layout>
     </div>
   `,
-  providers: [
-    // GoogleMapService,
-    // GeolocationService,
-    // OpenWeatherService
-  ]
+  providers: []
 })
 export class AppComponent implements OnInit {
 
-  isLoading: boolean = true
+  isLoading: boolean
 
-  map: google.maps.Map
-  position: IGeoposition
-  forecast: ICityForecast[]
+  position: Promise<IGeoposition>
+  forecast: Promise<IOWResponse>
 
-  // googlemapService: GoogleMapService
   geolocationService: GeolocationService
   openWeatherService: OpenWeatherService
 
-  constructor(
-    // private googlemapService: GoogleMapService
-    // private geolocationService: GeolocationService,
-    // private openWeatherService: OpenWeatherService
-  ) {
-    // this.googlemapService = new GoogleMapService()
-    this.geolocationService = new GeolocationService()
+  constructor() {
     this.openWeatherService = new OpenWeatherService('ddb1f0abb0c8107ef81e20d834d797a2')
+    this.geolocationService = new GeolocationService()
   }
 
-  getGeopisition(): Promise<IGeoposition> {
+  getGeoPosition(): Promise<IGeoposition> {
     return this.geolocationService.getCurrentPosition()
-      .then(position => this.position = position)
   }
 
-  getForecast(coords: ICitiesInCycleOptions): Promise<ICityForecast[]> {
+  getForecast(coords: ICitiesInCycleOptions): Promise<IOWResponse> {
     return this.openWeatherService.getWeatherForCitiesInCycle(coords)
-      .then((data: IOWResponse) => this.forecast = data.list)
   }
-
-  // getMap(): Promise<google.maps.Map> {
-  //   return this.googlemapService.getMap().then(map => this.map = map)
-  // }
 
   ngOnInit(): void {
-    this.getGeopisition()
+    this.isLoading = true
+
+    this.position = this.getGeoPosition()
+    this.forecast = this.position
       .then(geoposotionToOWCoords)
       .then(this.getForecast.bind(this))
-      .then(() => {
+
+    Promise.all([ this.position, this.forecast ])
+      .then((data: [IGeoposition, IOWResponse]) => {
         this.isLoading = false
-        // console.log(this.position, this.forecast)
+
+        console.info('position: ', data[0])
+        console.info('forecast: ', data[1])
+
+        console.log(JSON.stringify(data[1]))
       })
   }
 }

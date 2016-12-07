@@ -1,7 +1,6 @@
-///<reference path="../../node_modules/@types/googlemaps/index.d.ts"/>
 import { Component, Input } from '@angular/core'
-import { IGeoposition } from "./geolocation.model"
-import { ICityForecast } from "./openweather.model"
+import { IGeoposition } from './geolocation.model'
+import { IOWResponse } from "./openweather.model"
 
 @Component({
   selector: 'layout',
@@ -12,11 +11,13 @@ import { ICityForecast } from "./openweather.model"
       <div class="bar"></div>
       <div class="bar"></div>
     </div>
-    <main *ngIf="!isLoading"
+    <main
       [position]="position"
       [forecast]="forecast">  
     </main>
-    <footer></footer>
+    <footer
+      [position]="position">
+    </footer>
   `
 })
 export class LayoutComponent {
@@ -25,8 +26,8 @@ export class LayoutComponent {
   isLoading: boolean
 
   @Input()
-  position: IGeoposition
+  position: Promise<IGeoposition>
 
   @Input()
-  forecast: ICityForecast[]
+  forecast: Promise<IOWResponse>
 }

@@ -2,7 +2,8 @@ export interface IGeoposition {
   coords: {
     latitude: number,
     longitude: number
-  }
+  },
+  timestamp: number
 }
 
 export interface IGeoOptions {

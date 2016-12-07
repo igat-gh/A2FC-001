@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core'
-import { IGeoposition } from "./geolocation.model"
-import { ICityForecast } from "./openweather.model"
+import { IGeoposition } from './geolocation.model'
+import { IOWResponse } from './openweather.model'
 
 @Component({
   selector: 'main',
@@ -13,8 +13,8 @@ import { ICityForecast } from "./openweather.model"
 })
 export class MainComponent {
   @Input()
-  position: IGeoposition
+  position: Promise<IGeoposition>
 
   @Input()
-  forecast: ICityForecast[]
+  forecast: Promise<IOWResponse>
 }

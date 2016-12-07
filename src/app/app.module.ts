@@ -11,6 +11,7 @@ import { MainComponent } from './main.component'
 import { SidebarComponent } from './sidebar.component'
 import { MapComponent } from './googlemap.component'
 
+import { KelvinToCelsiusPipe } from './kelvin-to-celsius.pipe'
 
 @NgModule({
   bootstrap: [ AppComponent ],
@@ -22,7 +23,8 @@ import { MapComponent } from './googlemap.component'
     FooterComponent,
     MainComponent,
     SidebarComponent,
-    MapComponent
+    MapComponent,
+    KelvinToCelsiusPipe
   ]
 })
 export class AppModule {}

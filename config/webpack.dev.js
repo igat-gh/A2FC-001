@@ -24,7 +24,7 @@ module.exports = {
     path: helpers.root('dist')
   },
   resolve: {
-    extensions: ['', '.js', '.ts'],
+    extensions: ['', '.js', '.ts', 'json'],
     root: helpers.root('src'),
     modulesDirectories: ['node_modules']
   },
@@ -46,7 +46,7 @@ module.exports = {
     new CommonsChunkPlugin({
       name: ['polyfills', 'vendor'].reverse()
     }),
-    new ExtractTextPlugin('[name].css'),
+    new ExtractTextPlugin('[name].css')
   ],
   module: {
     preLoaders: [

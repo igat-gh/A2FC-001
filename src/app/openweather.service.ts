@@ -2,13 +2,15 @@ import { Injectable } from '@angular/core'
 import {
   UrlParams,
   IBaseOptions,
-  ICityForecast,
+  ICityWeather,
   ICitiesInCycleOptions,
-} from "./openweather.model"
+} from './openweather.model'
+import data from './openweather.data'
 
-const API_URL: string = "http://api.openweathermap.org/data/2.5/"
-const ICONS_ROOT: string = "http://openweathermap.org/img/w/"
-const BASE_OPTIONS: IBaseOptions = { lang: "ru", units: "metric", cnt: 50 }
+
+const API_URL: string = 'http://api.openweathermap.org/data/2.5/'
+const ICONS_ROOT: string = 'http://openweathermap.org/img/w/'
+const BASE_OPTIONS: IBaseOptions = { lang: 'ru', units: 'standard', cnt: 50 }
 
 
 @Injectable()
@@ -18,10 +20,10 @@ export class OpenWeatherService {
 
   getWeatherForCitiesInCycle(options: ICitiesInCycleOptions) {
     const requestOptions: ICitiesInCycleOptions = Object.assign({}, BASE_OPTIONS, options)
-    const resource = "find"
+    const resource = 'find'
     const url = this.buildResourceURL(resource, requestOptions)
 
-    return fetch(url).then((response) => response.json())
+    return fetch(url).then((response) => response.json()).catch(() => data)
   }
 
   private buildResourceURL(resource: string, params: UrlParams): string {
@@ -31,7 +33,7 @@ export class OpenWeatherService {
     return endpointWithApiKey + searchParams
   }
 
-  static buildIconURL(weather: ICityForecast): string {
+  static buildIconURL(weather: ICityWeather): string {
     return `${ICONS_ROOT}${weather.weather[0].icon}.png`
   }
 }

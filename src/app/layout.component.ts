@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core'
+import { Observable } from 'rxjs'
 import { IGeoposition } from './geolocation.model'
 import { IOWResponse } from "./openweather.model"
 
@@ -6,11 +7,9 @@ import { IOWResponse } from "./openweather.model"
   selector: 'layout',
   template: `
     <header></header>
-    <div *ngIf="isLoading" class="load-bar">
-      <div class="bar"></div>
-      <div class="bar"></div>
-      <div class="bar"></div>
-    </div>
+    <loader
+      [isLoading]="isLoading">
+    </loader>
     <main
       [position]="position"
       [forecast]="forecast">  
@@ -26,8 +25,8 @@ export class LayoutComponent {
   isLoading: boolean
 
   @Input()
-  position: Promise<IGeoposition>
+  position: Observable<IGeoposition>
 
   @Input()
-  forecast: Promise<IOWResponse>
+  forecast: Observable<IOWResponse>
 }

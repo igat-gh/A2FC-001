@@ -10,6 +10,8 @@ import { FooterComponent } from './footer.component'
 import { MainComponent } from './main.component'
 import { SidebarComponent } from './sidebar.component'
 import { MapComponent } from './googlemap.component'
+import { LoaderComponent } from './loader.component'
+import { CityWeatherComponent } from './city-weather.component'
 
 import { KelvinToCelsiusPipe } from './kelvin-to-celsius.pipe'
 
@@ -24,6 +26,8 @@ import { KelvinToCelsiusPipe } from './kelvin-to-celsius.pipe'
     MainComponent,
     SidebarComponent,
     MapComponent,
+    LoaderComponent,
+    CityWeatherComponent,
     KelvinToCelsiusPipe
   ]
 })

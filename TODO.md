@@ -1,6 +1,4 @@
 
-- create component for city weather
-- create loader component
 - refactor: promises -> observable
 - refactor: openweather model and service
 - add semicolons to the project

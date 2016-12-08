@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core'
+import { Observable } from 'rxjs'
 import { IGeoposition } from './geolocation.model'
 
 @Component({
@@ -8,10 +9,10 @@ import { IGeoposition } from './geolocation.model'
       <nav class="navbar navbar-default navbar-fixed-bottom">
         <div class="container-fluid">
           <p class="text-muted copyright">
-            Last update: {{lastUpdate | async | date: "medium"}}
+            Last update: {{lastUpdate$ | async | date: "medium"}}
             <br/>
-            Latitude: {{lat | async | number: '1.7-7'}},
-            Longitude: {{lon | async | number: '1.7-7'}}
+            Latitude: {{lat$ | async | number: '1.7-7'}},
+            Longitude: {{lon$ | async | number: '1.7-7'}}
           </p>
         </div>
       </nav>
@@ -19,18 +20,18 @@ import { IGeoposition } from './geolocation.model'
   `
 })
 export class FooterComponent implements OnInit {
-  lat: Promise<number>
-  lon: Promise<number>
-  lastUpdate: Promise<number>
+  lat$: Observable<number>
+  lon$: Observable<number>
+  lastUpdate$: Observable<number>
 
   @Input()
-  private position: Promise<IGeoposition>
+  private position: Observable<IGeoposition>
 
   ngOnInit() {
-    this.position.then((pos: IGeoposition) => {
-      this.lat = Promise.resolve(pos.coords.latitude)
-      this.lon = Promise.resolve(pos.coords.longitude)
-      this.lastUpdate = Promise.resolve(pos.timestamp)
+    this.position.map((pos: IGeoposition) => {
+      this.lat$ = Observable.of(pos.coords.latitude)
+      this.lon$ = Observable.of(pos.coords.longitude)
+      this.lastUpdate$ = Observable.of(pos.timestamp)
     })
   }
 }

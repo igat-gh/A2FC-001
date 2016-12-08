@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core'
+import { Observable } from 'rxjs'
 import { IGeoposition } from "./geolocation.model"
 import { IOWResponse } from "./openweather.model"
 
@@ -10,7 +11,13 @@ import { IOWResponse } from "./openweather.model"
       [longitude]="lon"
       [zoom]="zoom">
     </sebm-google-map>
-  `
+  `,
+  styles: [`
+    .sebm-google-map-container {
+      height: 100%;
+      width: 100%;
+    }
+  `]
 })
 export class MapComponent implements OnInit {
   lat: number = 0
@@ -18,13 +25,13 @@ export class MapComponent implements OnInit {
   zoom: number = 4
 
   @Input()
-  position: Promise<IGeoposition>
+  position: Observable<IGeoposition>
 
   @Input()
-  forecast: Promise<IOWResponse>
+  forecast: Observable<IOWResponse>
 
   ngOnInit() {
-    this.position.then((position: IGeoposition) => {
+    this.position.subscribe((position: IGeoposition) => {
       this.lat = position.coords.latitude
       this.lon = position.coords.longitude
       this.zoom = 12

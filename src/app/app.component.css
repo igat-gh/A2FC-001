@@ -109,10 +109,7 @@ body {
     overflow-x: hidden;
     overflow-y: hidden;
 }
-.sebm-google-map-container {
-    height: 100%;
-    width: 100%;
-}
+
 
 .footer .navbar {
   margin-bottom: 0px;

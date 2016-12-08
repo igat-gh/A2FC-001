@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core'
+import { Observable } from 'rxjs'
 import { IGeoposition } from './geolocation.model'
 import { IOWResponse } from './openweather.model'
 
@@ -13,8 +14,8 @@ import { IOWResponse } from './openweather.model'
 })
 export class MainComponent {
   @Input()
-  position: Promise<IGeoposition>
+  position: Observable<IGeoposition>
 
   @Input()
-  forecast: Promise<IOWResponse>
+  forecast: Observable<IOWResponse>
 }

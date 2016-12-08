@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
+import { Observable } from 'rxjs'
 import { GeolocationService } from './geolocation.service'
 import { OpenWeatherService } from './openweather.service'
-// import { GoogleMapService } from './googlemap.service'
 
 import { IGeoposition } from "./geolocation.model"
 import { ICityWeather, IOWResponse, ICitiesInCycleOptions } from "./openweather.model"
@@ -27,8 +27,8 @@ export class AppComponent implements OnInit {
 
   isLoading: boolean
 
-  position: Promise<IGeoposition>
-  forecast: Promise<IOWResponse>
+  position: Observable<IGeoposition>
+  forecast: Observable<IOWResponse>
 
   geolocationService: GeolocationService
   openWeatherService: OpenWeatherService
@@ -38,12 +38,12 @@ export class AppComponent implements OnInit {
     this.geolocationService = new GeolocationService()
   }
 
-  getGeoPosition(): Promise<IGeoposition> {
-    return this.geolocationService.getCurrentPosition()
+  getGeoPosition(): Observable<IGeoposition> {
+    return Observable.from(this.geolocationService.getCurrentPosition())
   }
 
-  getForecast(coords: ICitiesInCycleOptions): Promise<IOWResponse> {
-    return this.openWeatherService.getWeatherForCitiesInCycle(coords)
+  getForecast(coords: ICitiesInCycleOptions): Observable<IOWResponse> {
+    return Observable.from(this.openWeatherService.getWeatherForCitiesInCycle(coords))
   }
 
   ngOnInit(): void {
@@ -51,17 +51,16 @@ export class AppComponent implements OnInit {
 
     this.position = this.getGeoPosition()
     this.forecast = this.position
-      .then(geoposotionToOWCoords)
-      .then(this.getForecast.bind(this))
+      .map(geoposotionToOWCoords)
+      .flatMap(this.getForecast.bind(this))
 
-    Promise.all([ this.position, this.forecast ])
-      .then((data: [IGeoposition, IOWResponse]) => {
-        this.isLoading = false
-
-        console.info('position: ', data[0])
-        console.info('forecast: ', data[1])
-
-        console.log(JSON.stringify(data[1]))
-      })
+    Observable.zip(
+      this.position, this.forecast
+    ).subscribe(([ position, forecast ]) => {
+      this.isLoading = false
+      console.clear()
+      console.info('position: ', position)
+      console.info('forecast: ', forecast)
+    })
   }
 }

@@ -1,5 +1,4 @@
 
-- refactor: promises -> observable
 - refactor: openweather model and service
 - add semicolons to the project
 - rename interfaces

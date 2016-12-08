@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core'
-import { IGeoposition, IGeoOptions, IPositionError } from "./geolocation.model"
+import { Geoposition, GeoOptions, PositionError } from "./geolocation.model"
 
-const defaultOptions: IGeoOptions = {
+const defaultOptions: GeoOptions = {
   enableHighAccuracy: true
 }
 
 @Injectable()
 export class GeolocationService {
 
-  public getCurrentPosition(options: IGeoOptions = defaultOptions): Promise<IGeoposition> {
+  public getCurrentPosition(options: GeoOptions = defaultOptions): Promise<Geoposition> {
     return new Promise((resolve, reject) => {
-      const success = (position: IGeoposition): void => resolve(position)
-      const failure = (error: IPositionError): void => reject(error)
+      const success = (position: Geoposition): void => resolve(position)
+      const failure = (error: PositionError): void => reject(error)
 
       navigator.geolocation.getCurrentPosition(success, failure, options)
     })

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core'
 import { Observable } from 'rxjs'
-import { IGeoposition } from './geolocation.model'
+import { Geoposition } from './geolocation.model'
 
 @Component({
   selector: 'footer',
@@ -25,10 +25,10 @@ export class FooterComponent implements OnInit {
   lastUpdate: Observable<number>
 
   @Input()
-  private position: Observable<IGeoposition>
+  private position: Observable<Geoposition>
 
   ngOnInit() {
-    this.position.subscribe((pos: IGeoposition) => {
+    this.position.subscribe((pos: Geoposition) => {
       this.lat = Observable.of(pos.coords.latitude)
       this.lon = Observable.of(pos.coords.longitude)
       this.lastUpdate = Observable.of(pos.timestamp)

@@ -1,4 +1,4 @@
-export interface IGeoposition {
+export interface Geoposition {
   coords: {
     latitude: number,
     longitude: number
@@ -6,11 +6,11 @@ export interface IGeoposition {
   timestamp: number
 }
 
-export interface IGeoOptions {
+export interface GeoOptions {
   enableHighAccuracy?: boolean
 }
 
-export interface IPositionError {
+export interface PositionError {
   code: number,
   message: string
 }

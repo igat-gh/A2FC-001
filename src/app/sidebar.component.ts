@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core'
 import { Observable } from 'rxjs'
 import { OpenWeatherService } from './openweather.service'
-import { IOWResponse, ICityWeather } from './openweather.model'
+import { OWResponse, CityWeather } from './openweather.model'
 
 @Component({
   selector: 'sidebar',
@@ -18,17 +18,17 @@ import { IOWResponse, ICityWeather } from './openweather.model'
   `
 })
 export class SidebarComponent implements OnInit {
-  weather: ICityWeather[]
+  weather: CityWeather[]
 
   @Input()
-  forecast: Observable<IOWResponse>
+  forecast: Observable<OWResponse>
 
   ngOnInit() {
-    this.forecast.subscribe((forecast: IOWResponse) =>
+    this.forecast.subscribe((forecast: OWResponse) =>
       this.weather = forecast.list)
   }
 
-  getIconURL(cityWeather: ICityWeather): string {
+  getIconURL(cityWeather: CityWeather): string {
     return OpenWeatherService.buildIconURL(cityWeather)
   }
 }

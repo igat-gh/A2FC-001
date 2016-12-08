@@ -3,8 +3,8 @@ import { Observable } from 'rxjs'
 import { GeolocationService } from './geolocation.service'
 import { OpenWeatherService } from './openweather.service'
 
-import { IGeoposition } from "./geolocation.model"
-import { ICityWeather, IOWResponse, ICitiesInCycleOptions } from "./openweather.model"
+import { Geoposition } from "./geolocation.model"
+import { CityWeather, OWResponse, CitiesInCycleOptions } from "./openweather.model"
 
 import { geoposotionToOWCoords } from './app.helpers'
 
@@ -27,8 +27,8 @@ export class AppComponent implements OnInit {
 
   isLoading: boolean
 
-  position: Observable<IGeoposition>
-  forecast: Observable<IOWResponse>
+  position: Observable<Geoposition>
+  forecast: Observable<OWResponse>
 
   geolocationService: GeolocationService
   openWeatherService: OpenWeatherService
@@ -38,11 +38,11 @@ export class AppComponent implements OnInit {
     this.geolocationService = new GeolocationService()
   }
 
-  getGeoPosition(): Observable<IGeoposition> {
+  getGeoPosition(): Observable<Geoposition> {
     return Observable.from(this.geolocationService.getCurrentPosition())
   }
 
-  getForecast(coords: ICitiesInCycleOptions): Observable<IOWResponse> {
+  getForecast(coords: CitiesInCycleOptions): Observable<OWResponse> {
     return Observable.from(this.openWeatherService.getWeatherForCitiesInCycle(coords))
   }
 

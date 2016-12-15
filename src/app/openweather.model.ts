@@ -3,6 +3,12 @@ export type Units = "metric" | "imperial" | "standard"
 export type UrlParams = CitiesInCycleOptions
 
 export interface CityWeather {
+  name: string,
+  temp: number,
+  icon: string
+}
+
+export interface CityWeatherItem {
   clouds: { all: number },
   wind: { deg: number, speed: number, gust: number },
   coord: { lat: number, lon: number },
@@ -23,20 +29,20 @@ export interface CityWeather {
   id: number
 }
 
-export interface BaseOptions {
-  lang?: Lang,
-  units?: Units,
-  cnt?: number
-}
-
-export interface CitiesInCycleOptions extends BaseOptions {
-  lat: number,
-  lon: number
-}
-
 export interface OWResponse {
   cod: string,
   count: number,
   message: string,
-  list: CityWeather[]
+  list: CityWeatherItem[]
+}
+
+export interface BaseOptions {
+  lang?: Lang,
+  units?: Units,
+}
+
+export interface CitiesInCycleOptions extends BaseOptions {
+  lat: number,
+  lon: number,
+  cnt?: number
 }

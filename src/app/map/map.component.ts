@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core'
 import { Observable } from 'rxjs'
-import { Geoposition } from "./geolocation.model"
-import { OWResponse } from "./openweather.model"
+import { Geoposition } from "../geolocation.model"
+import { CityWeather } from "../openweather.model"
 
 @Component({
   selector: 'map',
@@ -28,7 +28,7 @@ export class MapComponent implements OnInit {
   position: Observable<Geoposition>
 
   @Input()
-  forecast: Observable<OWResponse>
+  forecast: Observable<CityWeather[]>
 
   ngOnInit() {
     this.position.subscribe((position: Geoposition) => {

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core'
 import { Observable } from 'rxjs'
-import { Geoposition } from './geolocation.model'
+import { Geoposition } from '../geolocation.model'
 
 @Component({
   selector: 'footer',

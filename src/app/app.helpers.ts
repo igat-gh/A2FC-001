@@ -1,6 +1,6 @@
 import { Geoposition } from "./geolocation.model"
 
-import { CityWeather } from "./openweather.model"
+import { CityWeatherItem } from "./openweather.model"
 import { OpenWeatherService } from "./openweather.service"
 
 export const geoposotionToOWCoords =
@@ -8,7 +8,7 @@ export const geoposotionToOWCoords =
     ({ lat, lon })
 
 
-export const forecastToGeoJSON = (weatherItem: CityWeather) => {
+export const forecastToGeoJSON = (weatherItem: CityWeatherItem) => {
   return {
       type: "Feature",
       properties: {
@@ -30,16 +30,4 @@ export const forecastToGeoJSON = (weatherItem: CityWeather) => {
         coordinates: [ weatherItem.coord.lon, weatherItem.coord.lat ]
       }
     }
-}
-
-export const renderCitiesForecast = (weather: CityWeather[], rootId: string) => {
-  const root = document.getElementById(rootId)
-  const weatherToTemplate = (item: CityWeather) => `
-    <li class="list-group-item">
-      <span class="badge">${item.main.temp}</span>
-      <img width="25" height="25" src="${OpenWeatherService.buildIconURL(item)}"/>
-      <span>${item.name}</span>
-    </li>
-  `
-  root.innerHTML = weather.map(weatherToTemplate).join("")
 }

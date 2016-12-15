@@ -1,4 +1,4 @@
-
+- fix styles if necessary
 - refactor: openweather model and service
 - add semicolons to the project
 - rename interfaces

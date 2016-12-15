@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core'
 import { Observable } from 'rxjs'
-import { Geoposition } from './geolocation.model'
-import { OWResponse } from "./openweather.model"
+import { Geoposition } from '../geolocation.model'
+import { CityWeather } from "../openweather.model"
 
 @Component({
   selector: 'layout',
@@ -28,5 +28,5 @@ export class LayoutComponent {
   position: Observable<Geoposition>
 
   @Input()
-  forecast: Observable<OWResponse>
+  forecast: Observable<CityWeather[]>
 }

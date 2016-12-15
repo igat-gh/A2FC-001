@@ -4,7 +4,7 @@ import { GeolocationService } from './geolocation.service'
 import { OpenWeatherService } from './openweather.service'
 
 import { Geoposition } from "./geolocation.model"
-import { OWResponse, CitiesInCycleOptions } from "./openweather.model"
+import { OWResponse, CitiesInCycleOptions, CityWeather } from "./openweather.model"
 
 import { geoposotionToOWCoords } from './app.helpers'
 
@@ -42,7 +42,7 @@ export class AppComponent implements OnInit {
     return Observable.from(this.geolocationService.getCurrentPosition())
   }
 
-  getForecast(coords: CitiesInCycleOptions): Observable<OWResponse> {
+  getForecast(coords: CitiesInCycleOptions): Observable<CityWeather[]> {
     return Observable.from(this.openWeatherService.getWeatherForCitiesInCycle(coords))
   }
 
@@ -54,13 +54,12 @@ export class AppComponent implements OnInit {
       .map(geoposotionToOWCoords)
       .flatMap(this.getForecast.bind(this))
 
-    Observable.zip(
-      this.position, this.forecast
-    ).subscribe(([ position, forecast ]) => {
-      this.isLoading = false
-      console.clear()
-      console.info('position: ', position)
-      console.info('forecast: ', forecast)
-    })
+    Observable.zip(this.position, this.forecast)
+      .subscribe(([ position, forecast ]) => {
+        this.isLoading = false
+        console.clear()
+        console.info('position: ', position)
+        console.info('forecast: ', forecast)
+      })
   }
 }

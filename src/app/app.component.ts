@@ -4,7 +4,7 @@ import { GeolocationService } from './geolocation.service'
 import { OpenWeatherService } from './openweather.service'
 
 import { Geoposition } from "./geolocation.model"
-import { CityWeather, OWResponse, CitiesInCycleOptions } from "./openweather.model"
+import { OWResponse, CitiesInCycleOptions } from "./openweather.model"
 
 import { geoposotionToOWCoords } from './app.helpers'
 

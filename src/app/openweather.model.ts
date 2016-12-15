@@ -5,7 +5,8 @@ export type UrlParams = CitiesInCycleOptions
 export interface CityWeather {
   name: string,
   temp: number,
-  icon: string
+  icon: string,
+  coords: { latitude: number, longitude: number }
 }
 
 export interface CityWeatherItem {

@@ -10,6 +10,12 @@ import { CityWeather } from "../openweather.model"
       [latitude]="lat"
       [longitude]="lon"
       [zoom]="zoom">
+      <sebm-google-map-marker *ngFor="let marker of markers"
+        [latitude]="marker.coords.latitude"
+        [longitude]="marker.coords.longitude"
+        [label]="marker.name"
+        [iconUrl]="marker.icon"
+      ></sebm-google-map-marker>
     </sebm-google-map>
   `,
   styles: [`
@@ -23,6 +29,7 @@ export class MapComponent implements OnInit {
   lat: number = 0
   lon: number = 0
   zoom: number = 4
+  markers: CityWeather[]
 
   @Input()
   position: Observable<Geoposition>
@@ -36,5 +43,7 @@ export class MapComponent implements OnInit {
       this.lon = position.coords.longitude
       this.zoom = 12
     })
+
+    this.forecast.subscribe((forecast: CityWeather[]) => this.markers = forecast)
   }
 }

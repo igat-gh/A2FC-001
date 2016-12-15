@@ -5,5 +5,3 @@
 - move styles to components
 - move templates and styles to separate files
 - and modifiers to classes props and method
-
-- add weather to the map

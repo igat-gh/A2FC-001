@@ -28,7 +28,11 @@ export class OpenWeatherService {
     return Promise.resolve(data).then((data: OWResponse): CityWeather[] => data.list.map((item: CityWeatherItem) => ({
         name: item.name,
         temp: item.main.temp,
-        icon: OpenWeatherService.buildIconURL(item)
+        icon: OpenWeatherService.buildIconURL(item),
+        coords: {
+          latitude: item.coord.lat,
+          longitude: item.coord.lon
+        }
       })))
   }
 

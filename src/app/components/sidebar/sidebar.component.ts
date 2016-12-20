@@ -1,13 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core'
-import { Observable } from 'rxjs'
-import { CityWeather } from '../openweather.model'
+import { Component, Input } from '@angular/core'
+import { CityWeather } from '../../services/openweather/openweather.model'
 
 @Component({
   selector: 'sidebar',
   template: `
     <div class="sidebar">
       <ul class="list-group" id="cities-list">
-        <city-weather *ngFor="let cityWeather of weather"
+        <city-weather *ngFor="let cityWeather of forecast"
           (onDelete)="deleteItem($event)"
           (onFavorite)="setFavoriteItem($event)"
           [weather]="cityWeather"
@@ -17,24 +16,17 @@ import { CityWeather } from '../openweather.model'
     </div>
   `
 })
-export class SidebarComponent implements OnInit {
-  weather: CityWeather[]
-
+export class SidebarComponent {
   favoriteItem: CityWeather
 
   @Input()
-  forecast: Observable<CityWeather[]>
+  forecast: CityWeather[]
 
   deleteItem(item: CityWeather): void {
-    this.weather = this.weather.filter(cityWeather => cityWeather.name !== item.name)
+    this.forecast = this.forecast.filter(cityWeather => cityWeather.name !== item.name)
   }
 
   setFavoriteItem(item: CityWeather): void {
     this.favoriteItem = item
-  }
-
-  ngOnInit(): void {
-    this.forecast.subscribe((forecast: CityWeather[]) =>
-      this.weather = forecast)
   }
 }

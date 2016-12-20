@@ -1,13 +1,13 @@
 import { Component, Input } from '@angular/core'
 import { Observable } from 'rxjs'
-import { Geoposition } from '../geolocation.model'
-import { CityWeather } from '../openweather.model'
+import { Geoposition } from '../../services/geolocation/geolocation.model'
+import { CityWeather } from '../../services/openweather/openweather.model'
 
 @Component({
   selector: 'main',
   template: `
     <div class="main">
-      <sidebar [forecast]="forecast"> </sidebar>
+      <sidebar [forecast]="forecast | async"> </sidebar>
       <map [forecast]="forecast" [position]="position" class="map"></map>
     </div>
   `

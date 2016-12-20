@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core'
 import { Observable } from 'rxjs'
-import { Geoposition } from "../geolocation.model"
-import { CityWeather } from "../openweather.model"
+import { Geoposition } from "../../services/geolocation/geolocation.model"
+import { CityWeather } from "../../services/openweather/openweather.model"
 
 @Component({
   selector: 'map',

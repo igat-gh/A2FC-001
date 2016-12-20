@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core'
 import { Observable } from 'rxjs'
-import { Geoposition } from '../geolocation.model'
-import { CityWeather } from "../openweather.model"
+import { Geoposition } from '../../services/geolocation/geolocation.model'
+import { CityWeather } from "../../services/openweather/openweather.model"
 
 @Component({
   selector: 'layout',
@@ -15,7 +15,7 @@ import { CityWeather } from "../openweather.model"
       [forecast]="forecast">  
     </main>
     <footer
-      [position]="position">
+      [position]="position | async">
     </footer>
   `
 })

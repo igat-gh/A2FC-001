@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core'
 import { Observable } from 'rxjs'
-import { GeolocationService } from './geolocation.service'
-import { OpenWeatherService } from './openweather.service'
+import { GeolocationService } from './services/geolocation/geolocation.service'
+import { OpenWeatherService } from './services/openweather/openweather.service'
 
-import { Geoposition } from "./geolocation.model"
-import { OWResponse, CitiesInCycleOptions, CityWeather } from "./openweather.model"
+import { Geoposition } from "./services/geolocation/geolocation.model"
+import { OWResponse, CitiesInCycleOptions, CityWeather } from "./services/openweather/openweather.model"
 
 import { geoposotionToOWCoords } from './app.helpers'
 
@@ -46,20 +46,20 @@ export class AppComponent implements OnInit {
     return Observable.from(this.openWeatherService.getWeatherForCitiesInCycle(coords))
   }
 
-  ngOnInit(): void {
-    this.isLoading = true
-
+  fetchData(): Observable<[Geoposition, OWResponse]> {
     this.position = this.getGeoPosition()
     this.forecast = this.position
       .map(geoposotionToOWCoords)
       .flatMap(this.getForecast.bind(this))
 
-    Observable.zip(this.position, this.forecast)
-      .subscribe(([ position, forecast ]) => {
-        this.isLoading = false
-        console.clear()
-        console.info('position: ', position)
-        console.info('forecast: ', forecast)
-      })
+    return Observable.zip(this.position, this.forecast)
+  }
+
+  ngOnInit(): void {
+    this.isLoading = true
+
+    this.fetchData().subscribe(() => this.isLoading = false)
+
+    Observable.interval(5000).subscribe(this.fetchData.bind(this))
   }
 }

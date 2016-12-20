@@ -9,7 +9,6 @@ import {
 } from './openweather.model'
 import data from './openweather.data'
 
-
 const API_URL: string = 'http://api.openweathermap.org/data/2.5/'
 const ICONS_ROOT: string = 'http://openweathermap.org/img/w/'
 const BASE_OPTIONS: BaseOptions = { lang: 'ru', units: 'standard' }
@@ -24,8 +23,8 @@ export class OpenWeatherService {
     const resource = 'find'
     const url = this.buildResourceURL(resource, requestOptions)
 
-    // return fetch(url).then((response) => response.json()).catch(() => data)
-    return Promise.resolve(data).then((data: OWResponse): CityWeather[] => data.list.map((item: CityWeatherItem) => ({
+    return fetch(url).then((response) => response.json()).catch(() => data)
+      .then((data: OWResponse): CityWeather[] => data.list.map((item: CityWeatherItem) => ({
         name: item.name,
         temp: item.main.temp,
         icon: OpenWeatherService.buildIconURL(item),

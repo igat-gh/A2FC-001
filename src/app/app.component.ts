@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, NgZone } from '@angular/core'
 import { Observable } from 'rxjs'
 import { GeolocationService } from './services/geolocation/geolocation.service'
 import { OpenWeatherService } from './services/openweather/openweather.service'
@@ -33,7 +33,7 @@ export class AppComponent implements OnInit {
   geolocationService: GeolocationService
   openWeatherService: OpenWeatherService
 
-  constructor() {
+  constructor(private zone: NgZone) {
     this.openWeatherService = new OpenWeatherService('ddb1f0abb0c8107ef81e20d834d797a2')
     this.geolocationService = new GeolocationService()
   }
@@ -56,10 +56,13 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.zone.onUnstable.subscribe(() => console.time('took: '))
+    this.zone.onStable.subscribe(() => console.timeEnd('took: '))
+
     this.isLoading = true
 
     this.fetchData().subscribe(() => this.isLoading = false)
 
-    Observable.interval(5000).subscribe(this.fetchData.bind(this))
+    // Observable.interval(5000).subscribe(this.fetchData.bind(this))
   }
 }

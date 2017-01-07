@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core'
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core'
 import { Geoposition } from '../../services/geolocation/geolocation.model'
 
 @Component({
@@ -10,13 +10,14 @@ import { Geoposition } from '../../services/geolocation/geolocation.model'
           <p class="text-muted copyright">
             Last update: {{position && position.timestamp | date: "medium"}}
             <br/>
-            Latitude: {{position && position.coords.latitude | number: '1.7-7'}},
-            Longitude: {{position && position.coords.longitude | number: '1.7-7'}}
+            Latitude: {{position && position.coords.latitude}},
+            Longitude: {{position && position.coords.longitude}}
           </p>
         </div>
       </nav>
     </div>
-  `
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FooterComponent {
   @Input()

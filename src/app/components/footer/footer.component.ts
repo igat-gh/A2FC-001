@@ -8,10 +8,9 @@ import { Geoposition } from '../../services/geolocation/geolocation.model'
       <nav class="navbar navbar-default navbar-fixed-bottom">
         <div class="container-fluid">
           <p class="text-muted copyright">
-            Last update: {{position && position.timestamp | date: "medium"}}
+            <span *ngIf="position">Last update: {{position.timestamp | date: "medium"}}</span>
             <br/>
-            Latitude: {{position && position.coords.latitude}},
-            Longitude: {{position && position.coords.longitude}}
+            <span *ngIf="position">Latitude: {{position.coords.latitude}}, Longitude: {{position.coords.longitude}}</span>
           </p>
         </div>
       </nav>

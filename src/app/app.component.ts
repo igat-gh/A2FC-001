@@ -56,13 +56,13 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.zone.onUnstable.subscribe(() => console.time('took: '))
-    this.zone.onStable.subscribe(() => console.timeEnd('took: '))
+    this.zone.onUnstable.subscribe(() => console.time('stabilization took: '))
+    this.zone.onStable.subscribe(() => console.timeEnd('stabilization took: '))
 
     this.isLoading = true
 
     this.fetchData().subscribe(() => this.isLoading = false)
 
-    // Observable.interval(5000).subscribe(this.fetchData.bind(this))
+    Observable.interval(5000).subscribe(this.fetchData.bind(this))
   }
 }

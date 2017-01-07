@@ -6,7 +6,7 @@ export class KelvinToCelsiusPipe implements PipeTransform {
     const celsius = kelvin - 273.15
 
     if ('formatted' === formatted) {
-      return celsius < 0 ? `${celsius} °C` : `+${celsius} °C`
+      return celsius < 0 ? `${(celsius).toFixed()} °C` : `+${(celsius).toFixed()} °C`
     }
 
     return celsius

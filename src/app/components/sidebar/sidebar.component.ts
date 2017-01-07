@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core'
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core'
 import { CityWeather } from '../../services/openweather/openweather.model'
 
 @Component({
@@ -14,7 +14,8 @@ import { CityWeather } from '../../services/openweather/openweather.model'
         </city-weather>
       </ul>
     </div>
-  `
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SidebarComponent {
   favoriteItem: CityWeather

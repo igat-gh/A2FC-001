@@ -18,6 +18,10 @@ import 'app/app.component.css'
         [isLoading]="isLoading"
         [position]="position"
         [forecast]="forecast">
+        <main
+          [position]="position"
+          [forecast]="forecast">  
+        </main>
       </layout>
     </div>
   `,
@@ -63,6 +67,6 @@ export class AppComponent implements OnInit {
 
     this.fetchData().subscribe(() => this.isLoading = false)
 
-    Observable.interval(5000).subscribe(this.fetchData.bind(this))
+    // Observable.interval(5000).subscribe(this.fetchData.bind(this))
   }
 }

@@ -10,10 +10,7 @@ import { CityWeather } from "../../services/openweather/openweather.model"
     <loader
       [isLoading]="isLoading">
     </loader>
-    <main
-      [position]="position"
-      [forecast]="forecast">  
-    </main>
+    <ng-content></ng-content>
     <footer
       [position]="position | async">
     </footer>

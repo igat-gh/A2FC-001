@@ -6,7 +6,7 @@ import { CityWeather } from '../../services/openweather/openweather.model'
   template: `
     <li class="list-group-item city-weather">
       <div class="weather-main-layer">
-        <span class="badge">{{weather.temp | kelvinToCelsius: "formatted"}}</span>
+        <span class="badge" [temperatureColor]="weather.temp">{{weather.temp | kelvinToCelsius: "formatted"}}</span>
         <img width="25" height="25" src="{{weather.icon}}"/>
         <span>{{weather.name}}</span>
       </div>

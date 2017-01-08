@@ -13,7 +13,8 @@ import { MapComponent } from './components/map/map.component'
 import { LoaderComponent } from './components/shared/loader.component'
 import { CityWeatherComponent } from './components/sidebar/city-weather.component'
 
-import { KelvinToCelsiusPipe } from './pipes/kelvin-to-celsius.pipe'
+import { KelvinToCelsiusPipe } from './pipes/kelvin-to-celsius/kelvin-to-celsius.pipe'
+import { TemperatureColorDirective } from './directives/temperature-color/temperature-color.directive'
 
 @NgModule({
   bootstrap: [ AppComponent ],
@@ -28,7 +29,8 @@ import { KelvinToCelsiusPipe } from './pipes/kelvin-to-celsius.pipe'
     MapComponent,
     LoaderComponent,
     CityWeatherComponent,
-    KelvinToCelsiusPipe
+    KelvinToCelsiusPipe,
+    TemperatureColorDirective
   ]
 })
 export class AppModule {}

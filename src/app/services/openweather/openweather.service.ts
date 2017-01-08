@@ -28,6 +28,10 @@ export class OpenWeatherService {
         name: item.name,
         temp: item.main.temp,
         icon: OpenWeatherService.buildIconURL(item),
+        wind: {
+          deg: item.wind.deg,
+          speed: item.wind.speed
+        },
         coords: {
           latitude: item.coord.lat,
           longitude: item.coord.lon

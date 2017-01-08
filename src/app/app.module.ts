@@ -1,5 +1,4 @@
 import { BrowserModule } from '@angular/platform-browser'
-
 import { NgModule } from '@angular/core'
 import { AgmCoreModule } from 'angular2-google-maps/core'
 
@@ -12,9 +11,12 @@ import { SidebarComponent } from './components/sidebar/sidebar.component'
 import { MapComponent } from './components/map/map.component'
 import { LoaderComponent } from './components/shared/loader.component'
 import { CityWeatherComponent } from './components/sidebar/city-weather.component'
+import { WindComponent } from './components/sidebar/wind.component'
 
 import { KelvinToCelsiusPipe } from './pipes/kelvin-to-celsius/kelvin-to-celsius.pipe'
+
 import { TemperatureColorDirective } from './directives/temperature-color/temperature-color.directive'
+import { RotationDirective } from './directives/rotation/rotation.directive'
 
 @NgModule({
   bootstrap: [ AppComponent ],
@@ -29,7 +31,9 @@ import { TemperatureColorDirective } from './directives/temperature-color/temper
     MapComponent,
     LoaderComponent,
     CityWeatherComponent,
+    WindComponent,
     KelvinToCelsiusPipe,
+    RotationDirective,
     TemperatureColorDirective
   ]
 })

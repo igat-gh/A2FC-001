@@ -6,6 +6,7 @@ export interface CityWeather {
   name: string,
   temp: number,
   icon: string,
+  wind: { deg: number, speed: number },
   coords: { latitude: number, longitude: number }
 }
 

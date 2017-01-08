@@ -40,6 +40,9 @@ export class AppComponent implements OnInit {
   constructor(private zone: NgZone) {
     this.openWeatherService = new OpenWeatherService('ddb1f0abb0c8107ef81e20d834d797a2')
     this.geolocationService = new GeolocationService()
+
+    this.zone.onUnstable.subscribe(() => console.time('stabilization took: '))
+    this.zone.onStable.subscribe(() => console.timeEnd('stabilization took: '))
   }
 
   getGeoPosition(): Observable<Geoposition> {
@@ -60,9 +63,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.zone.onUnstable.subscribe(() => console.time('stabilization took: '))
-    this.zone.onStable.subscribe(() => console.timeEnd('stabilization took: '))
-
     this.isLoading = true
 
     this.fetchData().subscribe(() => this.isLoading = false)

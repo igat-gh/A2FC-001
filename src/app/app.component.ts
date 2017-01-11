@@ -39,7 +39,6 @@ export class AppComponent implements OnInit {
   openWeatherService: OpenWeatherService
 
   constructor(
-    private zone: NgZone,
     private cd: ChangeDetectorRef
   ) {
     this.openWeatherService = new OpenWeatherService('ddb1f0abb0c8107ef81e20d834d797a2')
@@ -50,10 +49,6 @@ export class AppComponent implements OnInit {
     this.isLoading = true
 
     this.loadAppData().subscribe(() => this.isLoading = false)
-
-    this.zoneStableCheck()
-
-    Observable.interval(5000).subscribe(this.loadAppData.bind(this))
   }
 
   getGeoPosition(): Observable<Geoposition> {
@@ -70,24 +65,7 @@ export class AppComponent implements OnInit {
       .map(geoposotionToOWCoords)
       .flatMap(this.getForecast.bind(this))
 
-    this.cd.markForCheck();
+    this.cd.markForCheck()
     return Observable.zip(this.position, this.forecast)
-  }
-
-  zoneStableCheck() {
-    let diffTime: number
-    let initTime: number
-    const now = performance && performance.now ?
-      performance.now.bind(performance) : Date.now
-
-    this.zone.onUnstable.subscribe(() => {
-      diffTime = 0
-      initTime = now()
-    })
-
-    this.zone.onStable.subscribe(() => {
-      diffTime += (now() - initTime)
-      console.log('Changed in: ', Math.floor(diffTime * 100) / 100)
-    })
   }
 }

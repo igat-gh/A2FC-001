@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core'
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core'
 import { Observable } from 'rxjs'
 import { GeolocationService } from './services/geolocation/geolocation.service'
 import { OpenWeatherService } from './services/openweather/openweather.service'
@@ -25,8 +25,7 @@ import 'app/app.component.css'
       </layout>
     </div>
   `,
-  providers: [],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  providers: []
 })
 export class AppComponent implements OnInit {
 
@@ -38,9 +37,7 @@ export class AppComponent implements OnInit {
   geolocationService: GeolocationService
   openWeatherService: OpenWeatherService
 
-  constructor(
-    private cd: ChangeDetectorRef
-  ) {
+  constructor() {
     this.openWeatherService = new OpenWeatherService('ddb1f0abb0c8107ef81e20d834d797a2')
     this.geolocationService = new GeolocationService()
   }
@@ -65,7 +62,6 @@ export class AppComponent implements OnInit {
       .map(geoposotionToOWCoords)
       .flatMap(this.getForecast.bind(this))
 
-    this.cd.markForCheck()
     return Observable.zip(this.position, this.forecast)
   }
 }

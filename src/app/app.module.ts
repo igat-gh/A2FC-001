@@ -17,6 +17,7 @@ import { KelvinToCelsiusPipe } from './pipes/kelvin-to-celsius/kelvin-to-celsius
 
 import { TemperatureColorDirective } from './directives/temperature-color/temperature-color.directive'
 import { RotationDirective } from './directives/rotation/rotation.directive'
+import { UnlessDirective } from './directives/unless/unless.directive'
 
 @NgModule({
   bootstrap: [ AppComponent ],
@@ -34,7 +35,8 @@ import { RotationDirective } from './directives/rotation/rotation.directive'
     WindComponent,
     KelvinToCelsiusPipe,
     RotationDirective,
-    TemperatureColorDirective
+    TemperatureColorDirective,
+    UnlessDirective
   ]
 })
 export class AppModule {}

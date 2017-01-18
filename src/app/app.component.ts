@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core'
-import { Observable } from 'rxjs'
+import { Observable, BehaviorSubject } from 'rxjs'
 import { GeolocationService } from './services/geolocation/geolocation.service'
 import { OpenWeatherService } from './services/openweather/openweather.service'
 
@@ -15,12 +15,12 @@ import 'app/app.component.css'
   template: `
     <div class="app">
       <layout
-        [isLoading]="isLoading"
+        [loading]="loading"
         [position]="position"
         [forecast]="forecast">
         <main
           [position]="position"
-          [forecast]="forecast">  
+          [forecast]="forecast">
         </main>
       </layout>
     </div>
@@ -29,7 +29,7 @@ import 'app/app.component.css'
 })
 export class AppComponent implements OnInit {
 
-  isLoading: boolean
+  loading: BehaviorSubject<boolean> = new BehaviorSubject(false)
 
   position: Observable<Geoposition>
   forecast: Observable<OWResponse>
@@ -40,12 +40,21 @@ export class AppComponent implements OnInit {
   constructor() {
     this.openWeatherService = new OpenWeatherService('ddb1f0abb0c8107ef81e20d834d797a2')
     this.geolocationService = new GeolocationService()
+
+    this.loading.subscribe((isLoading: boolean): void => {
+      console.log('Loading: %s', isLoading)
+    })
   }
 
   ngOnInit(): void {
-    this.isLoading = true
+    this.loading.next(true)
 
-    this.loadAppData().subscribe(() => this.isLoading = false)
+    this.loadAppData().subscribe(([position, forecast]): void => {
+      this.loading.next(false)
+
+      console.log('Position: ', position)
+      console.log('Forecast: ', forecast)
+    })
   }
 
   getGeoPosition(): Observable<Geoposition> {

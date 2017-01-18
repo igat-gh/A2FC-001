@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core'
-import { Observable } from 'rxjs'
+import { Observable, BehaviorSubject } from 'rxjs'
 import { Geoposition } from '../../services/geolocation/geolocation.model'
 import { CityWeather } from "../../services/openweather/openweather.model"
 
@@ -8,7 +8,7 @@ import { CityWeather } from "../../services/openweather/openweather.model"
   template: `
     <header></header>
     <loader
-      [isLoading]="isLoading">
+      [isLoading]="loading | async">
     </loader>
     <ng-content></ng-content>
     <footer
@@ -19,7 +19,7 @@ import { CityWeather } from "../../services/openweather/openweather.model"
 export class LayoutComponent {
 
   @Input()
-  isLoading: boolean
+  loading: BehaviorSubject<boolean>
 
   @Input()
   position: Observable<Geoposition>

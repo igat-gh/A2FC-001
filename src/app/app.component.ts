@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core'
-import { Observable, BehaviorSubject } from 'rxjs'
+import { Observable, BehaviorSubject, Scheduler } from 'rxjs'
 import { GeolocationService } from './services/geolocation/geolocation.service'
 import { OpenWeatherService } from './services/openweather/openweather.service'
 
@@ -49,12 +49,16 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.loading.next(true)
 
-    this.loadAppData().subscribe(([position, forecast]): void => {
+    const data: Observable<[Geoposition, OWResponse]> = this.loadAppData().observeOn(Scheduler.async)
+
+    console.log('Before subscribe')
+    data.subscribe(([position, forecast]): void => {
       this.loading.next(false)
 
       console.log('Position: ', position)
       console.log('Forecast: ', forecast)
     })
+    console.log('After subscribe')
   }
 
   getGeoPosition(): Observable<Geoposition> {

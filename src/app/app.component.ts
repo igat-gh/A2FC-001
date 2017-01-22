@@ -1,8 +1,11 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core'
 import { Observable, BehaviorSubject, Scheduler } from 'rxjs'
+
+import { CONFIG, APP_CONFIG } from './configs/app.config'
 import { GeolocationService } from './services/geolocation/geolocation.service'
 import { OpenWeatherService } from './services/openweather/openweather.service'
 
+import { AppConfig } from './configs/app.config.model'
 import { Geoposition } from "./services/geolocation/geolocation.model"
 import { OWResponse, CitiesInCycleOptions, CityWeather } from "./services/openweather/openweather.model"
 
@@ -25,7 +28,11 @@ import 'app/app.component.css'
       </layout>
     </div>
   `,
-  providers: []
+  providers: [
+    { provide: APP_CONFIG, useValue: CONFIG },
+    { provide: GeolocationService, useClass: GeolocationService },
+    { provide: OpenWeatherService, useClass: OpenWeatherService }
+  ]
 })
 export class AppComponent implements OnInit {
 
@@ -34,13 +41,10 @@ export class AppComponent implements OnInit {
   position: Observable<Geoposition>
   forecast: Observable<OWResponse>
 
-  geolocationService: GeolocationService
-  openWeatherService: OpenWeatherService
-
-  constructor() {
-    this.openWeatherService = new OpenWeatherService('ddb1f0abb0c8107ef81e20d834d797a2')
-    this.geolocationService = new GeolocationService()
-
+  constructor(
+    private geolocationService: GeolocationService,
+    private openWeatherService: OpenWeatherService
+  ) {
     this.loading.subscribe((isLoading: boolean): void => {
       console.log('Loading: %s', isLoading)
     })

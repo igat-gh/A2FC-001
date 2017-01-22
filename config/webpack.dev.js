@@ -47,7 +47,9 @@ module.exports = {
       name: ['polyfills', 'vendor'].reverse()
     }),
     new ExtractTextPlugin('[name].css'),
-    new InlineEnviromentVariablesPlugin({ NODE_ENV: ENV })
+    new InlineEnviromentVariablesPlugin({
+      NODE_ENV: ENV
+    })
   ],
   module: {
     preLoaders: [

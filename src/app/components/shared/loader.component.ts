@@ -4,13 +4,14 @@ import { Component, Input } from '@angular/core'
   selector: 'loader',
   template: `
     <div *ngIf="isLoading" class="load-bar">
-      <div class="bar"></div>
-      <div class="bar"></div>
-      <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
     </div>
   `,
   styles: [`
     .load-bar {
+      z-index: 99999;
       position: relative;
       /*margin-top: 20px;*/
       width: 100%;

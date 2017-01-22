@@ -1,5 +1,6 @@
 .DS_STORE
 *.log
+yarn.lock
 
 dist
 node_modules

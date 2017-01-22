@@ -1,15 +1,15 @@
-const webpack = require('webpack');
-const helpers = require('./helpers');
-const path = require('path');
+const webpack = require('webpack')
+const helpers = require('./helpers')
+const path = require('path')
 
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const HtmlWebpack = require('html-webpack-plugin');
-const CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
+const InlineEnviromentVariablesPlugin = require('inline-environment-variables-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const HtmlWebpack = require('html-webpack-plugin')
+const CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin
 
-const ENV = process.env.ENV = process.env.NODE_ENV = 'development';
-const HOST = process.env.HOST || 'localhost';
-const PORT = process.env.PORT || 3000;
+const ENV = process.env.ENV = process.env.NODE_ENV = 'development'
+const HOST = process.env.HOST || 'localhost'
+const PORT = process.env.PORT || 3000
 
 module.exports = {
   debug: true,
@@ -24,7 +24,7 @@ module.exports = {
     path: helpers.root('dist')
   },
   resolve: {
-    extensions: ['', '.js', '.ts', 'json'],
+    extensions: ['', '.js', '.ts', '.json'],
     root: helpers.root('src'),
     modulesDirectories: ['node_modules']
   },
@@ -46,7 +46,8 @@ module.exports = {
     new CommonsChunkPlugin({
       name: ['polyfills', 'vendor'].reverse()
     }),
-    new ExtractTextPlugin('[name].css')
+    new ExtractTextPlugin('[name].css'),
+    new InlineEnviromentVariablesPlugin({ NODE_ENV: ENV })
   ],
   module: {
     preLoaders: [

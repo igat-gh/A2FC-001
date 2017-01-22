@@ -1,8 +1,10 @@
+require('dotenv').config()
+
 const webpack = require('webpack')
 const helpers = require('./helpers')
 const path = require('path')
+const stringify = require('stringify-object-values')
 
-const InlineEnviromentVariablesPlugin = require('inline-environment-variables-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpack = require('html-webpack-plugin')
 const CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin
@@ -47,9 +49,7 @@ module.exports = {
       name: ['polyfills', 'vendor'].reverse()
     }),
     new ExtractTextPlugin('[name].css'),
-    new InlineEnviromentVariablesPlugin({
-      NODE_ENV: ENV
-    })
+    new webpack.DefinePlugin({ 'process.env': stringify(process.env) })
   ],
   module: {
     preLoaders: [

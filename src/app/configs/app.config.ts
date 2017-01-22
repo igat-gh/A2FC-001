@@ -4,9 +4,9 @@ import { AppConfig } from './app.config.model'
 
 export const CONFIG: AppConfig = Object.freeze({
   openWeather: {
-    apiKey: 'ddb1f0abb0c8107ef81e20d834d797a2'
+    apiKey: process.env.OPEN_WEATHER_API_KEY
   },
   env: process.env.NODE_ENV
 })
-
+console.log(process.env.OPEN_WEATHER_API_KEY)
 export const APP_CONFIG = new OpaqueToken('app.config')

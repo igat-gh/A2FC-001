@@ -1,10 +1,6 @@
-import { Injectable, OpaqueToken } from '@angular/core'
+import { Injectable } from '@angular/core'
 
-import { Config } from './app.config.model'
-
-export const APP_CONFIG = new OpaqueToken('app.config')
-
-export class Setings {
+export class Config {
   public env: string
   public openWeatherApiKey: string
 }

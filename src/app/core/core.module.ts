@@ -1,19 +1,12 @@
 import { ModuleWithProviders, NgModule } from '@angular/core'
 
-import { AppConfig, APP_CONFIG, Setings } from './app.config'
-import { Config } from './app.config.model'
+import { AppConfig, Config } from './app.config'
 import { GeolocationService } from './services/geolocation/geolocation.service'
 import { OpenWeatherService } from './services/openweather/openweather.service'
 
 @NgModule({
-  imports: [
-  ],
-  declarations: [
-  ],
-  exports: [
-  ],
   providers: [
-    // AppConfig,
+    AppConfig,
     GeolocationService,
     OpenWeatherService
   ]
@@ -24,7 +17,7 @@ export class CoreModule {
     return {
       ngModule: CoreModule,
       providers: [
-        // { provide: Setings, useValue: config },
+        { provide: Config, useValue: config },
         { provide: OpenWeatherService, useClass: OpenWeatherService },
         { provide: GeolocationService, useClass: GeolocationService }
       ]

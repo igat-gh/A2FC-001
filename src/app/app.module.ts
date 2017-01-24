@@ -6,7 +6,7 @@ import { LayoutModule } from './layout/layout.module'
 
 import { AppComponent } from './app.component'
 
-import { Config } from './core/app.config.model'
+import { Config } from './core/app.config'
 
 const config: Config = {
   openWeatherApiKey: process.env.OPEN_WEATHER_API_KEY,

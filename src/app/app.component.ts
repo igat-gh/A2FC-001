@@ -1,13 +1,11 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { Observable, BehaviorSubject, Scheduler } from 'rxjs'
 
-import { CONFIG, APP_CONFIG } from './configs/app.config'
-import { GeolocationService } from './services/geolocation/geolocation.service'
-import { OpenWeatherService } from './services/openweather/openweather.service'
+import { GeolocationService } from './core/services/geolocation/geolocation.service'
+import { OpenWeatherService } from './core/services/openweather/openweather.service'
 
-import { AppConfig } from './configs/app.config.model'
-import { Geoposition } from "./services/geolocation/geolocation.model"
-import { OWResponse, CitiesInCycleOptions, CityWeather } from "./services/openweather/openweather.model"
+import { Geoposition } from "./core/services/geolocation/geolocation.model"
+import { OWResponse, CitiesInCycleOptions, CityWeather } from "./core/services/openweather/openweather.model"
 
 import { geoposotionToOWCoords } from './app.helpers'
 
@@ -27,12 +25,7 @@ import 'app/app.component.css'
         </main>
       </layout>
     </div>
-  `,
-  providers: [
-    { provide: APP_CONFIG, useValue: CONFIG },
-    { provide: GeolocationService, useClass: GeolocationService },
-    { provide: OpenWeatherService, useClass: OpenWeatherService }
-  ]
+  `
 })
 export class AppComponent implements OnInit {
 
@@ -46,8 +39,7 @@ export class AppComponent implements OnInit {
     private openWeatherService: OpenWeatherService
   ) {
     this.loading.subscribe((isLoading: boolean): void => {
-      console.log('Loading: %s', isLoading)
-    })
+      console.log('Loading: %s', isLoading)})
   }
 
   ngOnInit(): void {

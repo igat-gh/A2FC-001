@@ -1,5 +1,5 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core'
-import { Geoposition } from '../../services/geolocation/geolocation.model'
+import { Geoposition } from '../core/services/geolocation/geolocation.model'
 
 @Component({
   selector: 'footer',

@@ -1,42 +1,25 @@
 import { BrowserModule } from '@angular/platform-browser'
 import { NgModule } from '@angular/core'
-import { AgmCoreModule } from 'angular2-google-maps/core'
+
+import { CoreModule } from './core/core.module'
+import { LayoutModule } from './layout/layout.module'
 
 import { AppComponent } from './app.component'
-import { LayoutComponent } from './components/layout/layout.component'
-import { HeaderComponent } from './components/header/header.component'
-import { FooterComponent } from './components/footer/footer.component'
-import { MainComponent } from './components/main/main.component'
-import { SidebarComponent } from './components/sidebar/sidebar.component'
-import { MapComponent } from './components/map/map.component'
-import { LoaderComponent } from './components/shared/loader.component'
-import { CityWeatherComponent } from './components/sidebar/city-weather.component'
-import { WindComponent } from './components/sidebar/wind.component'
 
-import { KelvinToCelsiusPipe } from './pipes/kelvin-to-celsius/kelvin-to-celsius.pipe'
+import { Config } from './core/app.config.model'
 
-import { TemperatureColorDirective } from './directives/temperature-color/temperature-color.directive'
-import { RotationDirective } from './directives/rotation/rotation.directive'
-import { UnlessDirective } from './directives/unless/unless.directive'
+const config: Config = {
+  openWeatherApiKey: process.env.OPEN_WEATHER_API_KEY,
+  env: process.env.NODE_ENV
+}
 
 @NgModule({
   bootstrap: [ AppComponent ],
-  imports: [ BrowserModule, AgmCoreModule.forRoot() ],
-  declarations: [
-    AppComponent,
-    LayoutComponent,
-    HeaderComponent,
-    FooterComponent,
-    MainComponent,
-    SidebarComponent,
-    MapComponent,
-    LoaderComponent,
-    CityWeatherComponent,
-    WindComponent,
-    KelvinToCelsiusPipe,
-    RotationDirective,
-    TemperatureColorDirective,
-    UnlessDirective
-  ]
+  imports: [
+    BrowserModule,
+    CoreModule.forRoot(config),
+    LayoutModule
+  ],
+  declarations: [ AppComponent ]
 })
 export class AppModule {}

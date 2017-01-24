@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core'
 import { Observable } from 'rxjs'
-import { Geoposition } from '../../services/geolocation/geolocation.model'
-import { CityWeather } from '../../services/openweather/openweather.model'
+import { Geoposition } from '../core/services/geolocation/geolocation.model'
+import { CityWeather } from '../core/services/openweather/openweather.model'
 
 @Component({
   selector: 'main',

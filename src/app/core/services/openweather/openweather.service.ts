@@ -7,9 +7,8 @@ import {
   OWResponse,
   CityWeather
 } from './openweather.model'
-import { AppConfig } from '../../configs/app.config.model'
 
-import { APP_CONFIG } from '../../configs/app.config'
+import {APP_CONFIG, AppConfig} from '../../app.config'
 import data from './openweather.data'
 
 const API_URL: string = 'http://api.openweathermap.org/data/2.5/'
@@ -19,7 +18,7 @@ const BASE_OPTIONS: BaseOptions = { lang: 'ru', units: 'standard' }
 @Injectable()
 export class OpenWeatherService {
 
-  constructor(@Inject(APP_CONFIG) private config: AppConfig) { }
+  constructor(/*@Inject(APP_CONFIG) private config: AppConfig*/) { }
 
   getWeatherForCitiesInCycle(options: CitiesInCycleOptions): Promise<CityWeather[]> {
     const requestOptions: CitiesInCycleOptions = Object.assign({ cnt: 50 }, BASE_OPTIONS, options)
@@ -43,7 +42,7 @@ export class OpenWeatherService {
   }
 
   private buildResourceURL(resource: string, params: UrlParams): string {
-    const endpointWithApiKey = `${API_URL}${resource}?appid=${this.config.openWeather.apiKey}&`
+    const endpointWithApiKey = `${API_URL}${resource}?appid=${'ddb1f0abb0c8107ef81e20d834d797a2'}&`
     const searchParams = Object.keys(params).map(key => `${key}=${params[key]}`).join('&')
 
     return endpointWithApiKey + searchParams

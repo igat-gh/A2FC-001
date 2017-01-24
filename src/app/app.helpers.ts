@@ -1,7 +1,7 @@
-import { Geoposition } from "./services/geolocation/geolocation.model"
+import { Geoposition } from "./core/services/geolocation/geolocation.model"
 
-import { CityWeatherItem } from "./services/openweather/openweather.model"
-import { OpenWeatherService } from "./services/openweather/openweather.service"
+import { CityWeatherItem } from "./core/services/openweather/openweather.model"
+import { OpenWeatherService } from "./core/services/openweather/openweather.service"
 
 export const geoposotionToOWCoords =
   ({ coords: { latitude: lat }, coords: { longitude: lon }}: Geoposition) =>

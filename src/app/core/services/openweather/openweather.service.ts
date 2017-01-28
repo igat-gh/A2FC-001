@@ -1,4 +1,7 @@
-import { Injectable, Inject } from '@angular/core'
+import { Injectable } from '@angular/core'
+import { Http, Response } from '@angular/http'
+import { Observable } from 'rxjs'
+
 import {
   UrlParams,
   BaseOptions,
@@ -18,15 +21,15 @@ const BASE_OPTIONS: BaseOptions = { lang: 'ru', units: 'standard' }
 @Injectable()
 export class OpenWeatherService {
 
-  constructor(private config: AppConfig) { }
+  constructor(private config: AppConfig, private http: Http) { }
 
-  getWeatherForCitiesInCycle(options: CitiesInCycleOptions): Promise<CityWeather[]> {
+  getWeatherForCitiesInCycle(options: CitiesInCycleOptions): Observable<CityWeather[]> {
     const requestOptions: CitiesInCycleOptions = Object.assign({ cnt: 50 }, BASE_OPTIONS, options)
     const resource = 'find'
     const url = this.buildResourceURL(resource, requestOptions)
 
-    return fetch(url).then((response) => response.json()).catch(() => data)
-      .then((data: OWResponse): CityWeather[] => data.list.map((item: CityWeatherItem) => ({
+    return this.http.get(url).map((response: Response) => response.json())// .catch(() => data)
+      .map((data: OWResponse): CityWeather[] => data.list.map((item: CityWeatherItem) => ({
         name: item.name,
         temp: item.main.temp,
         icon: OpenWeatherService.buildIconURL(item),
@@ -42,8 +45,8 @@ export class OpenWeatherService {
   }
 
   private buildResourceURL(resource: string, params: UrlParams): string {
-    const endpointWithApiKey = `${API_URL}${resource}?appid=${'ddb1f0abb0c8107ef81e20d834d797a2'}&`
-    const searchParams = Object.keys(params).map(key => `${key}=${params[key]}`).join('&')
+    const endpointWithApiKey = `${API_URL}${resource}?appid=${this.config.openWeatherApiKey}&`
+    const searchParams = Object.keys(params).map((key) => `${key}=${params[key]}`).join('&')
 
     return endpointWithApiKey + searchParams
   }

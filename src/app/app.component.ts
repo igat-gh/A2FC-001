@@ -9,10 +9,9 @@ import { OWResponse, CitiesInCycleOptions, CityWeather } from "./core/services/o
 
 import { geoposotionToOWCoords } from './app.helpers'
 
-import 'app/app.component.css'
-
 @Component({
-  selector: 'app',
+  selector: 'app-root',
+  styleUrls: ['./app.component.css'],
   template: `
     <div class="app">
       <layout
@@ -62,7 +61,7 @@ export class AppComponent implements OnInit {
   }
 
   getForecast(coords: CitiesInCycleOptions): Observable<CityWeather[]> {
-    return Observable.from(this.openWeatherService.getWeatherForCitiesInCycle(coords))
+    return this.openWeatherService.getWeatherForCitiesInCycle(coords)
   }
 
   loadAppData(): Observable<[Geoposition, OWResponse]> {

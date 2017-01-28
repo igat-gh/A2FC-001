@@ -5,6 +5,7 @@ import { CityWeather } from '../core/services/openweather/openweather.model'
 
 @Component({
   selector: 'main',
+  styleUrls: ['./main.component.css'],
   template: `
     <div class="main">
       <sidebar [forecast]="forecast | async"> </sidebar>

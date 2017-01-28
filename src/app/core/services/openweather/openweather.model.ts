@@ -41,10 +41,11 @@ export interface OWResponse {
 export interface BaseOptions {
   lang?: Lang,
   units?: Units,
+  [key: string]: number | string
 }
 
 export interface CitiesInCycleOptions extends BaseOptions {
   lat: number,
   lon: number,
-  cnt?: number
+  cnt?: number,
 }

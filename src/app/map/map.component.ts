@@ -5,6 +5,7 @@ import { CityWeather } from "../core/services/openweather/openweather.model"
 
 @Component({
   selector: 'map',
+  styleUrls: ['./map.component.css'],
   template: `
     <sebm-google-map
       [latitude]="lat"

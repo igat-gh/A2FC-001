@@ -3,6 +3,7 @@ import { Geoposition } from '../core/services/geolocation/geolocation.model'
 
 @Component({
   selector: 'footer',
+  styleUrls: ['./footer.component.css'],
   template: `
     <div class="footer">
       <nav class="navbar navbar-default navbar-fixed-bottom">

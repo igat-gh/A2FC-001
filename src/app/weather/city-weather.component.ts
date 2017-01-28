@@ -3,6 +3,7 @@ import { CityWeather } from '../core/services/openweather/openweather.model'
 
 @Component({
   selector: 'city-weather',
+  styleUrls: ['./city-weather.component.css'],
   template: `
     <li class="list-group-item city-weather">
       <div class="weather-main-layer">
@@ -22,24 +23,6 @@ import { CityWeather } from '../core/services/openweather/openweather.model'
       </div>
     </li>
   `,
-  styles: [`
-    .city-weather {
-      position: relative;
-    }
-    .weather-main-layer {}
-    .weather-options-layer {
-      display: none;
-    }
-    .city-weather:hover .weather-options-layer {
-      display: block;
-      position: absolute;
-      top: 0px;
-      left: 0px;
-      width: 100%;
-      height: 100%;
-      background: rgba(255,255,255,0.7);
-    }
-  `],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CityWeatherComponent {

@@ -3,6 +3,7 @@ import { CityWeather } from '../core/services/openweather/openweather.model'
 
 @Component({
   selector: 'sidebar',
+  styleUrls: ['./sidebar.component.css'],
   template: `
     <div class="sidebar">
       <ul class="list-group" id="cities-list">

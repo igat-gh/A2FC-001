@@ -1,5 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser'
 import { NgModule } from '@angular/core'
+import { HttpModule } from '@angular/http'
+
+import { environment } from '../environments/environment'
 
 import { CoreModule } from './core/core.module'
 import { LayoutModule } from './layout/layout.module'
@@ -9,14 +12,15 @@ import { AppComponent } from './app.component'
 import { Config } from './core/app.config'
 
 const config: Config = {
-  openWeatherApiKey: process.env.OPEN_WEATHER_API_KEY,
-  env: process.env.NODE_ENV
+  openWeatherApiKey: environment.OPEN_WEATHER_API_KEY,
+  env: environment.ENV
 }
 
 @NgModule({
   bootstrap: [ AppComponent ],
   imports: [
     BrowserModule,
+    HttpModule,
     CoreModule.forRoot(config),
     LayoutModule
   ],

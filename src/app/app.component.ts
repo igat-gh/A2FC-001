@@ -3,6 +3,7 @@ import { Observable, BehaviorSubject, Scheduler } from 'rxjs'
 
 import { GeolocationService } from './core/services/geolocation/geolocation.service'
 import { OpenWeatherService } from './core/services/openweather/openweather.service'
+import { LoggerService } from './core/services/logger/logger.service'
 
 import { Geoposition } from "./core/services/geolocation/geolocation.model"
 import { OWResponse, CitiesInCycleOptions, CityWeather } from "./core/services/openweather/openweather.model"
@@ -35,7 +36,8 @@ export class AppComponent implements OnInit {
 
   constructor(
     private geolocationService: GeolocationService,
-    private openWeatherService: OpenWeatherService
+    private openWeatherService: OpenWeatherService,
+    private loggerService: LoggerService
   ) {
     this.loading.subscribe((isLoading: boolean): void => {
       console.log('Loading: %s', isLoading)})
@@ -46,7 +48,8 @@ export class AppComponent implements OnInit {
 
     const data: Observable<[Geoposition, OWResponse]> = this.loadAppData().observeOn(Scheduler.async)
 
-    console.log('Before subscribe')
+    // console.log('Before subscribe')
+    this.loggerService.log('Before subscribe')
     data.subscribe(([position, forecast]): void => {
       this.loading.next(false)
 

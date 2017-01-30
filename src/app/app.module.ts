@@ -13,7 +13,8 @@ import { Config } from './core/app.config'
 
 const config: Config = {
   openWeatherApiKey: environment.OPEN_WEATHER_API_KEY,
-  env: environment.ENV
+  env: environment.ENV,
+  production: environment.production
 }
 
 @NgModule({

@@ -11,7 +11,7 @@ import {
   CityWeather
 } from './openweather.model'
 
-import { AppConfig } from '../../app.config'
+import { AppConfig } from '../../core.config'
 import data from './openweather.data'
 
 const API_URL: string = 'http://api.openweathermap.org/data/2.5/'

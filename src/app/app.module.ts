@@ -9,7 +9,7 @@ import { LayoutModule } from './layout/layout.module'
 
 import { AppComponent } from './app.component'
 
-import { Config } from './core/app.config'
+import { Config } from './core/core.config'
 
 const config: Config = {
   openWeatherApiKey: environment.OPEN_WEATHER_API_KEY,

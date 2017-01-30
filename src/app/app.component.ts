@@ -40,7 +40,7 @@ export class AppComponent implements OnInit {
     private loggerService: LoggerService
   ) {
     this.loading.subscribe((isLoading: boolean): void => {
-      console.log('Loading: %s', isLoading)})
+      this.loggerService.log(`Loading: ${isLoading}`)})
   }
 
   ngOnInit(): void {
@@ -48,15 +48,12 @@ export class AppComponent implements OnInit {
 
     const data: Observable<[Geoposition, OWResponse]> = this.loadAppData().observeOn(Scheduler.async)
 
-    // console.log('Before subscribe')
-    this.loggerService.log('Before subscribe')
     data.subscribe(([position, forecast]): void => {
       this.loading.next(false)
 
       console.log('Position: ', position)
       console.log('Forecast: ', forecast)
     })
-    console.log('After subscribe')
   }
 
   getGeoPosition(): Observable<Geoposition> {

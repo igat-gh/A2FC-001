@@ -1,3 +1,9 @@
+export interface GeopositionState {
+  loading: boolean,
+  entity?: Geoposition,
+  error?: PositionError
+}
+
 export interface Geoposition {
   coords: {
     latitude: number,
@@ -6,11 +12,12 @@ export interface Geoposition {
   timestamp: number
 }
 
-export interface GeoOptions {
-  enableHighAccuracy?: boolean
-}
-
 export interface PositionError {
   code: number,
   message: string
 }
+
+export interface GeoOptions {
+  enableHighAccuracy?: boolean
+}
+

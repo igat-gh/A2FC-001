@@ -1,0 +1,2 @@
+- refactor app config
+- add index file with exports to all modules

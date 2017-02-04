@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core'
 import { Observable, BehaviorSubject } from 'rxjs'
-import { Geoposition } from '../core/services/geolocation/geolocation.model'
-import { CityWeather } from "../core/services/openweather/openweather.model"
+import { Geoposition } from '../core/geolocation/geolocation.model'
+import { CityWeather } from "../core/openweather/openweather.model"
 
 @Component({
   selector: 'layout',

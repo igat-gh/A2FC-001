@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core'
-import { Observable, BehaviorSubject, Scheduler } from 'rxjs'
+import { Observable, BehaviorSubject } from 'rxjs'
+import { Store } from '@ngrx/store'
 
-import { GeolocationService } from './core/services/geolocation/geolocation.service'
-import { OpenWeatherService } from './core/services/openweather/openweather.service'
-import { LoggerService } from './core/services/logger/logger.service'
+import { AppState } from './app.model'
 
-import { Geoposition } from "./core/services/geolocation/geolocation.model"
-import { OWResponse, CitiesInCycleOptions, CityWeather } from "./core/services/openweather/openweather.model"
+import { GeolocationService } from './core/geolocation/geolocation.service'
+import { OpenWeatherService } from './core/openweather/openweather.service'
+import { LoggerService } from './core/logger/logger.service'
+
+import { Geoposition } from "./core/geolocation/geolocation.model"
+import { OWResponse, CitiesInCycleOptions, CityWeather } from "./core/openweather/openweather.model"
 
 import { geoposotionToOWCoords } from './app.helpers'
 
@@ -37,7 +40,8 @@ export class AppComponent implements OnInit {
   constructor(
     private geolocationService: GeolocationService,
     private openWeatherService: OpenWeatherService,
-    private loggerService: LoggerService
+    private loggerService: LoggerService,
+    private store: Store<AppState>
   ) {
     this.loading.subscribe((isLoading: boolean): void => {
       this.loggerService.log(`Loading: ${isLoading}`)})
@@ -46,7 +50,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.loading.next(true)
 
-    const data: Observable<[Geoposition, OWResponse]> = this.loadAppData().observeOn(Scheduler.async)
+    const data: Observable<[Geoposition, OWResponse]> = this.loadAppData()
 
     data.subscribe(([position, forecast]): void => {
       this.loading.next(false)
@@ -54,14 +58,17 @@ export class AppComponent implements OnInit {
       console.log('Position: ', position)
       console.log('Forecast: ', forecast)
     })
+
+    this.store.dispatch({ type: '[GEOPOSITION] Request' })
+    this.store.select('weather').subscribe((c) => console.log(c))
   }
 
   getGeoPosition(): Observable<Geoposition> {
-    return Observable.from(this.geolocationService.getCurrentPosition())
+    return Observable.from(this.geolocationService.loadCurrentPosition())
   }
 
   getForecast(coords: CitiesInCycleOptions): Observable<CityWeather[]> {
-    return this.openWeatherService.getWeatherForCitiesInCycle(coords)
+    return this.openWeatherService.loadWeatherForCitiesInCycle(coords)
   }
 
   loadAppData(): Observable<[Geoposition, OWResponse]> {
@@ -70,6 +77,6 @@ export class AppComponent implements OnInit {
       .map(geoposotionToOWCoords)
       .flatMap(this.getForecast.bind(this))
 
-    return Observable.zip(this.position, this.forecast)
+    return Observable.combineLatest([this.position, this.forecast])
   }
 }

@@ -11,7 +11,7 @@ import {
   CityWeather
 } from './openweather.model'
 
-import { AppConfig } from '../../core.config'
+import { AppConfig } from '../core.config'
 import data from './openweather.data'
 
 const API_URL: string = 'http://api.openweathermap.org/data/2.5/'
@@ -21,9 +21,12 @@ const BASE_OPTIONS: BaseOptions = { lang: 'ru', units: 'standard' }
 @Injectable()
 export class OpenWeatherService {
 
-  constructor(private config: AppConfig, private http: Http) { }
+  constructor(
+    private config: AppConfig,
+    private http: Http
+  ) { }
 
-  getWeatherForCitiesInCycle(options: CitiesInCycleOptions): Observable<CityWeather[]> {
+  loadWeatherForCitiesInCycle(options: CitiesInCycleOptions): Observable<CityWeather[]> {
     const requestOptions: CitiesInCycleOptions = Object.assign({ cnt: 50 }, BASE_OPTIONS, options)
     const resource = 'find'
     const url = this.buildResourceURL(resource, requestOptions)

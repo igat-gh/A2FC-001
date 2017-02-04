@@ -2,6 +2,12 @@ export type Lang = "ru" | "en"
 export type Units = "metric" | "imperial" | "standard"
 export type UrlParams = CitiesInCycleOptions
 
+export interface WeatherState {
+  loading: boolean,
+  error?: Error,
+  entities: CityWeather[]
+}
+
 export interface CityWeather {
   name: string,
   temp: number,

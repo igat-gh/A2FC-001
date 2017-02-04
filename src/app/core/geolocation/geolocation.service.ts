@@ -8,7 +8,7 @@ const defaultOptions: GeoOptions = {
 @Injectable()
 export class GeolocationService {
 
-  public getCurrentPosition(options: GeoOptions = defaultOptions): Promise<Geoposition> {
+  public loadCurrentPosition(options: GeoOptions = defaultOptions): Promise<Geoposition> {
     return new Promise((resolve, reject) => {
       const success = (position: Geoposition): void => resolve(position)
       const failure = (error: PositionError): void => reject(error)

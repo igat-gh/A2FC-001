@@ -1,31 +1,20 @@
 import { Action } from '@ngrx/store'
 import { PositionError, Geoposition } from './geolocation.model'
 
-export const ActionTypes = {
-  REQUEST: '[GEOPOSITION] Request',
-  SUCCESS: '[GEOPOSITION] Success',
-  FAIL   : '[GEOPOSITION] Fail'
+export class GeopositionActions {
+
+  static GET_GEOPOSITION = '[Geoposition] Get position'
+  public getGeoposition(): Action {
+    return { type: GeopositionActions.GET_GEOPOSITION }
+  }
+
+  static GET_GEOPOSITION_SUCCESS = '[Geoposition] Get position success'
+  public getGeopositionSuccess(geoposition: Geoposition): Action {
+    return { type: GeopositionActions.GET_GEOPOSITION_SUCCESS, payload: geoposition }
+  }
+
+  static GET_GEOPOSITION_FAIL = '[Geoposition] Get position fail'
+  public getGeopositionFail(error: PositionError): Action {
+    return { type: GeopositionActions.GET_GEOPOSITION_FAIL, payload: error }
+  }
 }
-
-export class RequestAction implements Action {
-  type = ActionTypes.REQUEST
-
-  constructor() {}
-}
-
-export class SuccessAction implements Action {
-  type = ActionTypes.SUCCESS
-
-  constructor(public payload: Geoposition) {}
-}
-
-export class FailAction implements Action {
-  public type = ActionTypes.FAIL
-
-  constructor(public payload: PositionError) {}
-}
-
-export type GeopositionAction
-  = RequestAction
-  | SuccessAction
-  | FailAction

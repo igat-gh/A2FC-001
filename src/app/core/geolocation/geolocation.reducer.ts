@@ -1,26 +1,25 @@
 import { Action } from '@ngrx/store'
 import { GeopositionState } from './geolocation.model'
-import { GeopositionAction, ActionTypes } from './geolocation.actions'
+import { GeopositionActions } from './geolocation.actions'
 
-// TODO: use GeopositionAction type instead of Action
 export function geolocationReducer(
   state: GeopositionState = { loading: false },
   action: Action
 ): GeopositionState {
 
     switch (action.type) {
-      case ActionTypes.REQUEST: {
+      case GeopositionActions.GET_GEOPOSITION: {
         return Object.assign({}, state, {
           loading: true
         })
       }
-      case ActionTypes.SUCCESS: {
+      case GeopositionActions.GET_GEOPOSITION_SUCCESS: {
         return Object.assign({}, state, {
           loading: false,
           entity: action.payload
         })
       }
-      case ActionTypes.FAIL: {
+      case GeopositionActions.GET_GEOPOSITION_FAIL: {
         return Object.assign({}, state, {
           loading: false,
           error: action.payload

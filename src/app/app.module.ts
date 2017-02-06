@@ -14,6 +14,7 @@ import { AppComponent } from './app.component'
 import { coreReducer } from './core/core.reducer'
 
 import { environment } from '../environments/environment'
+import { AppEffects } from "./app.effects"
 
 const config: Config = {
   openWeatherApiKey: environment.OPEN_WEATHER_API_KEY,
@@ -28,6 +29,7 @@ const config: Config = {
     HttpModule,
     LayoutModule,
     CoreModule.forRoot(config),
+    // EffectsModule.run(AppEffects),
     StoreModule.provideStore(coreReducer),
     StoreDevtoolsModule.instrumentOnlyWithExtension()
   ],

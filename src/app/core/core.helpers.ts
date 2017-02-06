@@ -1,10 +1,10 @@
-import { Geoposition } from "./core/geolocation/geolocation.model"
+import { Geoposition } from "./geolocation/geolocation.model"
 
-import { CityWeatherItem } from "./core/openweather/openweather.model"
-import { OpenWeatherService } from "./core/openweather/openweather.service"
+import {CityWeatherItem, CitiesInCycleOptions} from "./openweather/openweather.model"
+import { OpenWeatherService } from "./openweather/openweather.service"
 
 export const geoposotionToOWCoords =
-  ({ coords: { latitude: lat }, coords: { longitude: lon }}: Geoposition) =>
+  ({ coords: { latitude: lat }, coords: { longitude: lon }}: Geoposition): CitiesInCycleOptions =>
     ({ lat, lon })
 
 

@@ -2,8 +2,19 @@ import { Action } from '@ngrx/store'
 import { GeopositionState } from './geolocation.model'
 import { GeopositionActions } from './geolocation.actions'
 
+const initialState: GeopositionState = {
+  loading: false,
+  entity: {
+    coords: {
+      latitude: null,
+      longitude: null
+    },
+    timestamp: null
+  }
+}
+
 export function geolocationReducer(
-  state: GeopositionState = { loading: false },
+  state: GeopositionState = initialState,
   action: Action
 ): GeopositionState {
 

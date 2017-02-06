@@ -8,10 +8,12 @@ import { GeolocationService } from './core/geolocation/geolocation.service'
 import { OpenWeatherService } from './core/openweather/openweather.service'
 import { LoggerService } from './core/logger/logger.service'
 
-import { Geoposition } from "./core/geolocation/geolocation.model"
-import { OWResponse, CitiesInCycleOptions, CityWeather } from "./core/openweather/openweather.model"
+import { Geoposition, GeopositionState } from "./core/geolocation/geolocation.model"
+import { CitiesInCycleOptions, CityWeather, WeatherState } from "./core/openweather/openweather.model"
 
-import { geoposotionToOWCoords } from './app.helpers'
+import { geoposotionToOWCoords } from './core/core.helpers'
+import { GeopositionActions } from "./core/geolocation/geolocation.actions";
+import { OpenWeatherActions } from "./core/openweather/openweather.actions";
 
 @Component({
   selector: 'app-root',
@@ -35,48 +37,52 @@ export class AppComponent implements OnInit {
   loading: BehaviorSubject<boolean> = new BehaviorSubject(false)
 
   position: Observable<Geoposition>
-  forecast: Observable<OWResponse>
+  forecast: Observable<CityWeather[]>
 
   constructor(
     private geolocationService: GeolocationService,
     private openWeatherService: OpenWeatherService,
+    private geolocationActions: GeopositionActions,
+    private openWeatherActions: OpenWeatherActions,
     private loggerService: LoggerService,
     private store: Store<AppState>
   ) {
-    this.loading.subscribe((isLoading: boolean): void => {
-      this.loggerService.log(`Loading: ${isLoading}`)})
+      this.position = this.store.select('geoposition')
+        .map((geoposition: GeopositionState): Geoposition => geoposition.entity)
+
+      this.forecast = this.store.select('forecast')
+        .map((forecast: WeatherState): CityWeather[] => forecast.entities)
   }
 
   ngOnInit(): void {
     this.loading.next(true)
 
-    const data: Observable<[Geoposition, OWResponse]> = this.loadAppData()
+    this.loadAppData().subscribe(() => this.loading.next(false))
 
-    data.subscribe(([position, forecast]): void => {
-      this.loading.next(false)
-
-      console.log('Position: ', position)
-      console.log('Forecast: ', forecast)
-    })
-
-    this.store.dispatch({ type: '[GEOPOSITION] Request' })
-    this.store.select('weather').subscribe((c) => console.log(c))
+    this.loading.subscribe((isLoading: boolean): void =>
+      this.loggerService.log(`Loading: ${isLoading}`))
   }
 
-  getGeoPosition(): Observable<Geoposition> {
-    return Observable.from(this.geolocationService.loadCurrentPosition())
+  loadGeoPosition(): Observable<Geoposition> {
+    this.store.dispatch(this.geolocationActions.getGeoposition())
+    return Observable.from(this.geolocationService.getCurrentPosition())
   }
 
-  getForecast(coords: CitiesInCycleOptions): Observable<CityWeather[]> {
+  loadForecast(coords: CitiesInCycleOptions): Observable<CityWeather[]> {
+    this.store.dispatch(this.openWeatherActions.loadForecast())
     return this.openWeatherService.loadWeatherForCitiesInCycle(coords)
   }
 
-  loadAppData(): Observable<[Geoposition, OWResponse]> {
-    this.position = this.getGeoPosition()
-    this.forecast = this.position
-      .map(geoposotionToOWCoords)
-      .flatMap(this.getForecast.bind(this))
+  loadAppData(): Observable<[CityWeather[], Geoposition]> {
 
-    return Observable.combineLatest([this.position, this.forecast])
+    const position = this.loadGeoPosition()
+      .do((position: Geoposition) => this.store.dispatch(this.geolocationActions.getGeopositionSuccess(position)))
+
+    const forecast = position
+      .map(geoposotionToOWCoords)
+      .switchMap(this.loadForecast.bind(this))
+      .do((forecast: CityWeather[]) => this.store.dispatch(this.openWeatherActions.loadForecastSuccess(forecast)))
+
+    return Observable.combineLatest(forecast, position)
   }
 }

@@ -1,0 +1,16 @@
+.map {
+  position: fixed;
+  display: block;
+  width: calc(100% - 300px);
+  top: 51px;
+  left: 300px;
+  bottom: 51px;
+  z-index: 1000;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+.sebm-google-map-container {
+  height: 100%;
+  width: 100%;
+}

@@ -8,26 +8,23 @@ import { GeolocationService } from './core/geolocation/geolocation.service'
 import { OpenWeatherService } from './core/openweather/openweather.service'
 import { LoggerService } from './core/logger/logger.service'
 
-import { Geoposition, GeopositionState } from "./core/geolocation/geolocation.model"
-import { CitiesInCycleOptions, CityWeather, WeatherState } from "./core/openweather/openweather.model"
+import { Geoposition, GeopositionState } from './core/geolocation/geolocation.model'
+import { CitiesInCycleOptions, CityWeather, WeatherState } from './core/openweather/openweather.model'
 
 import { geoposotionToOWCoords } from './core/core.helpers'
-import { GeopositionActions } from "./core/geolocation/geolocation.actions";
-import { OpenWeatherActions } from "./core/openweather/openweather.actions";
+import { GeopositionActions } from './core/geolocation/geolocation.actions'
+import { OpenWeatherActions } from './core/openweather/openweather.actions'
 
 @Component({
   selector: 'app-root',
   styleUrls: ['./app.component.css'],
   template: `
-    <div class="app">
+    <div class='app'>
       <layout
-        [loading]="loading"
-        [position]="position"
-        [forecast]="forecast">
-        <main
-          [position]="position"
-          [forecast]="forecast">
-        </main>
+        [loading]='loading'
+        [position]='position'
+        [forecast]='forecast'>
+        <main></main>
       </layout>
     </div>
   `

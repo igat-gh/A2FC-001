@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core'
 
 import { SharedModule } from '../shared/shared.module'
-import { SidebarComponent } from './sidebar.component'
+import { WeatherComponent } from './weather.component'
 import { CityWeatherComponent } from './city-weather.component'
 import { WindComponent } from './wind.component'
 
@@ -9,9 +9,9 @@ import { WindComponent } from './wind.component'
   imports: [SharedModule],
   declarations: [
     WindComponent,
-    SidebarComponent,
+    WeatherComponent,
     CityWeatherComponent
   ],
-  exports: [SidebarComponent]
+  exports: [WeatherComponent]
 })
 export class WeatherModule { }

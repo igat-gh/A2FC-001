@@ -1,50 +1,59 @@
-import { Component, Input, OnInit } from '@angular/core'
-import { Observable } from 'rxjs'
-import { Geoposition } from "../core/geolocation/geolocation.model"
-import { CityWeather } from "../core/openweather/openweather.model"
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import {Observable, Subscription} from 'rxjs'
+import {Geoposition, GeopositionState} from "../core/geolocation/geolocation.model"
+import {CityWeather, WeatherState} from "../core/openweather/openweather.model"
+import {AppState} from "../app.model";
+import {Store} from "@ngrx/store";
 
 @Component({
-  selector: 'map',
   styleUrls: ['./map.component.css'],
   template: `
-    <sebm-google-map
-      [latitude]="lat"
-      [longitude]="lon"
-      [zoom]="zoom">
-      <sebm-google-map-marker *ngFor="let marker of markers"
-        [latitude]="marker.coords.latitude"
-        [longitude]="marker.coords.longitude"
-        [label]="marker.name"
-        [iconUrl]="marker.icon"
-      ></sebm-google-map-marker>
-    </sebm-google-map>
-  `,
-  styles: [`
-    .sebm-google-map-container {
-      height: 100%;
-      width: 100%;
-    }
-  `]
+    <div class="map">
+      <sebm-google-map
+        [latitude]="lat"
+        [longitude]="lon"
+        [zoom]="zoom">
+        <sebm-google-map-marker *ngFor="let marker of markers"
+          [latitude]="marker.coords.latitude"
+          [longitude]="marker.coords.longitude"
+          [label]="marker.name"
+          [iconUrl]="marker.icon"
+        ></sebm-google-map-marker>
+      </sebm-google-map>
+    </div>
+  `
 })
-export class MapComponent implements OnInit {
+export class MapComponent implements OnInit, OnDestroy {
+
+  private positionSubscription: Subscription
+  private forecastSubscription: Subscription
+
   lat: number = 0
   lon: number = 0
   zoom: number = 4
   markers: CityWeather[]
 
-  @Input()
   position: Observable<Geoposition>
-
-  @Input()
   forecast: Observable<CityWeather[]>
 
-  ngOnInit() {
-    this.position.subscribe((position: Geoposition) => {
-      this.lat = position.coords.latitude
-      this.lon = position.coords.longitude
-      this.zoom = 12
-    })
+  constructor(private store: Store<AppState>) {}
 
-    this.forecast.subscribe((forecast: CityWeather[]) => this.markers = forecast)
+  ngOnInit() {
+    this.positionSubscription = this.store.select('geoposition')
+      .subscribe((geoposition: GeopositionState): void => {
+        const position = geoposition.entity
+
+        this.lat = position.coords.latitude
+        this.lon = position.coords.longitude
+        this.zoom = 12
+      })
+
+    this.forecastSubscription = this.store.select('forecast')
+      .subscribe((forecast: WeatherState): CityWeather[] => this.markers = forecast.entities)
+  }
+
+  ngOnDestroy() {
+    this.positionSubscription.unsubscribe()
+    this.forecastSubscription.unsubscribe()
   }
 }

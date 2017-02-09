@@ -13,7 +13,6 @@ import { LayoutModule } from './layout/layout.module'
 import { AppComponent } from './app.component'
 import { AppEffects } from './app.effects'
 import { AppRoutingModule } from './app-routing.module';
-import { PageNotFoundComponent } from './layout/page-not-found.component'
 
 const config: Config = {
   openWeatherApiKey: environment.OPEN_WEATHER_API_KEY,
@@ -33,6 +32,6 @@ const config: Config = {
     StoreModule.provideStore(coreReducer),
     StoreDevtoolsModule.instrumentOnlyWithExtension()
   ],
-  declarations: [ AppComponent, PageNotFoundComponent ]
+  declarations: [ AppComponent ]
 })
 export class AppModule {}

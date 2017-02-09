@@ -24,7 +24,7 @@ import { OpenWeatherActions } from './core/openweather/openweather.actions'
         [loading]='loading'
         [position]='position'
         [forecast]='forecast'>
-        <main></main>
+        <router-outlet></router-outlet>
       </layout>
     </div>
   `

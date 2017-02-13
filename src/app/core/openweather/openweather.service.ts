@@ -30,9 +30,9 @@ export class OpenWeatherService {
     const requestOptions: CitiesInCycleOptions = Object.assign({ cnt: 50 }, BASE_OPTIONS, options)
     const resource = 'find'
     const url = this.buildResourceURL(resource, requestOptions)
-
-    return this.http.get(url).map((response: Response) => response.json())// .catch(() => data)
-      .map((data: OWResponse): CityWeather[] => data.list.map((item: CityWeatherItem) => ({
+    // return this.http.get(url).map((response: Response) => response.json())
+    return Observable.of(1)
+      .map((num: number): CityWeather[] => data.list.map((item) => ({
         name: item.name,
         temp: item.main.temp,
         icon: OpenWeatherService.buildIconURL(item),

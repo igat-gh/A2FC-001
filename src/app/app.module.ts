@@ -24,10 +24,10 @@ const config: Config = {
   bootstrap: [ AppComponent ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     HttpModule,
     LayoutModule,
     CoreModule.forRoot(config),
+    AppRoutingModule,
     // EffectsModule.run(AppEffects),
     StoreModule.provideStore(coreReducer),
     StoreDevtoolsModule.instrumentOnlyWithExtension()

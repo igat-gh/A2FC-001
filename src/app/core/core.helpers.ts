@@ -21,7 +21,7 @@ export const forecastToGeoJSON = (weatherItem: CityWeatherItem) => {
         pressure: weatherItem.main.pressure,
         windSpeed: weatherItem.wind.speed,
         windDegrees: weatherItem.wind.deg,
-        windGust: weatherItem.wind.gust,
+        // windGust: weatherItem.wind.gust,
         icon: OpenWeatherService.buildIconURL(weatherItem),
         coordinates: [ weatherItem.coord.lon, weatherItem.coord.lat ]
       },

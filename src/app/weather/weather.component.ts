@@ -3,6 +3,7 @@ import {CityWeather, WeatherState} from '../core/openweather/openweather.model'
 import {Store} from "@ngrx/store";
 import {AppState} from "../app.model";
 import { Subscription } from "rxjs";
+import {Router} from "@angular/router";
 
 @Component({
   styleUrls: ['./weather.component.css'],
@@ -10,6 +11,7 @@ import { Subscription } from "rxjs";
     <div class="sidebar">
       <ul class="list-group" id="cities-list">
         <city-weather *ngFor="let cityWeather of forecast"
+          (click)="onSelect(cityWeather)"
           (onDelete)="deleteItem($event)"
           (onFavorite)="setFavoriteItem($event)"
           [weather]="cityWeather"
@@ -27,7 +29,7 @@ export class WeatherComponent implements OnInit, OnDestroy {
 
   forecast: CityWeather[]
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<AppState>, private router: Router) {}
 
   ngOnInit(): void {
     this.forecastSubscription = this.store.select('forecast')
@@ -36,6 +38,10 @@ export class WeatherComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.forecastSubscription.unsubscribe()
+  }
+
+  onSelect(cityWeather: CityWeather): void {
+    this.router.navigate(['/weather', cityWeather.name]);
   }
 
   deleteItem(item: CityWeather): void {

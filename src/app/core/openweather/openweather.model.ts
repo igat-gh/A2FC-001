@@ -18,7 +18,8 @@ export interface CityWeather {
 
 export interface CityWeatherItem {
   clouds: { all: number },
-  wind: { deg: number, speed: number, gust: number },
+  wind: { deg: number, speed: number },
+  sys: { country: string }
   coord: { lat: number, lon: number },
   main: {
     humidity: number,
@@ -30,7 +31,8 @@ export interface CityWeatherItem {
   weather: {
     description: string,
     icon: string,
-    main: string
+    main: string,
+    id: number
   }[],
   name: string,
   dt: number,

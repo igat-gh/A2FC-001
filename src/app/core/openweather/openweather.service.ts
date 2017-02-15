@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
-import { Http, Response } from '@angular/http'
 import { Observable } from 'rxjs'
+import { Http, Response, Request, Headers, URLSearchParams, RequestMethod } from '@angular/http'
 
 import {
   UrlParams,
@@ -27,12 +27,19 @@ export class OpenWeatherService {
   ) { }
 
   loadWeatherForCitiesInCycle(options: CitiesInCycleOptions): Observable<CityWeather[]> {
-    const requestOptions: CitiesInCycleOptions = Object.assign({ cnt: 50 }, BASE_OPTIONS, options)
-    const resource = 'find'
-    const url = this.buildResourceURL(resource, requestOptions)
-    // return this.http.get(url).map((response: Response) => response.json())
-    return Observable.of(1)
-      .map((num: number): CityWeather[] => data.list.map((item) => ({
+    const request = new Request({
+      method: RequestMethod.Get,
+      url: `${API_URL}find`,
+      search: new URLSearchParams(
+        this.makeParams(Object.assign({ cnt: 50 }, BASE_OPTIONS, options))
+      )
+    })
+
+    return this.http.request(request)
+      .map((response: Response) => response.json())
+    // return Observable.of(1)
+    //   .map((num: number): CityWeather[] => data.list.map((item) => ({
+      .map((data: OWResponse): CityWeather[] => data.list.map((item) => ({
         name: item.name,
         temp: item.main.temp,
         icon: OpenWeatherService.buildIconURL(item),
@@ -47,11 +54,9 @@ export class OpenWeatherService {
       })))
   }
 
-  private buildResourceURL(resource: string, params: UrlParams): string {
-    const endpointWithApiKey = `${API_URL}${resource}?appid=${this.config.openWeatherApiKey}&`
-    const searchParams = Object.keys(params).map((key) => `${key}=${params[key]}`).join('&')
-
-    return endpointWithApiKey + searchParams
+  private makeParams(params: UrlParams): string {
+    const appKey = `appid=${this.config.openWeatherApiKey}&`
+    return appKey + Object.keys(params).map((key) => `${key}=${params[key]}`).join('&')
   }
 
   public static buildIconURL(weather: CityWeatherItem): string {

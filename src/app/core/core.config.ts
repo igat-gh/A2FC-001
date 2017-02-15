@@ -11,6 +11,7 @@ export class AppConfig {
   public env: string
   public openWeatherApiKey: string
   public production: boolean
+  public useCachedWeatherData: boolean = true
 
   constructor(private _config: Config) {
     this.env = _config.env

@@ -26,7 +26,7 @@ export class CityWeatherDetailsComponent implements OnInit {
       .switchMap((params: Params) => this.store.select('forecast')
         .map((forecast: WeatherState) =>
           forecast.entities.find((weather: CityWeather) => weather.name === params['cityName'])))
-      .subscribe((details: CityWeather) => { console.log(details); this.details = details })
+      .subscribe((details: CityWeather) => this.details = details)
   }
 
 }

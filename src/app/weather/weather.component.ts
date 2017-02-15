@@ -41,7 +41,7 @@ export class WeatherComponent implements OnInit, OnDestroy {
   }
 
   onSelect(cityWeather: CityWeather): void {
-    this.router.navigate(['/weather', cityWeather.name]);
+    this.router.navigate(['/cities', cityWeather.name]);
   }
 
   deleteItem(item: CityWeather): void {

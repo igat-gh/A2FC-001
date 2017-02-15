@@ -4,8 +4,8 @@ import { WeatherComponent } from './weather.component'
 import { CityWeatherDetailsComponent } from './city-weather-details.component'
 
 const weatherRoutes: Routes = [
-  { path: 'weather', component: WeatherComponent },
-  { path: 'weather/:cityName', component: CityWeatherDetailsComponent }
+  { path: 'cities', component: WeatherComponent },
+  { path: 'cities/:cityName', component: CityWeatherDetailsComponent }
 ]
 
 @NgModule({

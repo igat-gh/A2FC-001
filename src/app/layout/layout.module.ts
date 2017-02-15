@@ -3,7 +3,6 @@ import { RouterModule }  from '@angular/router'
 
 import { SharedModule } from '../shared/shared.module'
 import { WeatherModule } from '../weather/weather.module'
-import { MapModule } from '../map/map.module'
 
 import { LayoutComponent } from './layout.component'
 import { HeaderComponent } from './header.component'
@@ -15,8 +14,7 @@ import { PageNotFoundComponent } from './page-not-found.component'
   imports: [
     RouterModule,
     SharedModule,
-    WeatherModule,
-    MapModule
+    WeatherModule
   ],
   declarations: [
     HeaderComponent,

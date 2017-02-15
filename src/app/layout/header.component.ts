@@ -7,10 +7,13 @@ import { Component } from '@angular/core'
       <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
           <div class="navbar-header">
-            <a class="navbar-brand" href="#">Weather</a>
+            <a class="navbar-brand" routerLink="/">Weather</a>
           </div>
           <div id="navbar" class="collapse navbar-collapse">
-            <ul class="nav navbar-nav"></ul>
+            <ul class="nav navbar-nav">
+              <li routerLinkActive="active"><a routerLink="/cities">Cities</a></li>
+              <li routerLinkActive="active"><a routerLink="/map">Map</a></li>
+            </ul>
           </div>
         </div>
       </nav>

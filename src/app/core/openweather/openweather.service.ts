@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
-import { Http, Response, Request, Headers, URLSearchParams, RequestMethod } from '@angular/http'
+import { Http, Response, Request, URLSearchParams, RequestMethod } from '@angular/http'
 
 import {
   UrlParams,

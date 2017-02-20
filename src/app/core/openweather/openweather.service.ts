@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
-import { Http, Response, Request, URLSearchParams, RequestMethod } from '@angular/http'
+import {Http, Response, Request, URLSearchParams, RequestMethod, Headers} from '@angular/http'
 
 import {
   UrlParams,
@@ -32,7 +32,10 @@ export class OpenWeatherService {
       url: `${API_URL}find`,
       search: new URLSearchParams(
         this.makeParams(Object.assign({ cnt: 50 }, BASE_OPTIONS, options))
-      )
+      ),
+      headers: new Headers({
+        'Accept': 'application/json'
+      })
     })
 
     return this.http.request(request)

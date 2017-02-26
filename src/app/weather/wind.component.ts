@@ -8,7 +8,6 @@ import { Component, Input } from '@angular/core'
     `
 })
 export class WindComponent {
-
   @Input()
   speed: number
 

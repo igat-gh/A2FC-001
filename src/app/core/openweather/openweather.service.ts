@@ -28,20 +28,18 @@ export class OpenWeatherService {
 
   loadWeatherForCitiesInCycle(options: CitiesInCycleOptions): Observable<CityWeather[]> {
     const request = new Request({
-      method: RequestMethod.Get,
       url: `${API_URL}find`,
+      method: RequestMethod.Get,
+      headers: new Headers({ 'Accept': 'application/json' }),
       search: new URLSearchParams(
         this.makeParams(Object.assign({ cnt: 50 }, BASE_OPTIONS, options))
-      ),
-      headers: new Headers({
-        'Accept': 'application/json'
-      })
+      )
     })
 
-    return this.http.request(request)
-      .map((response: Response) => response.json())
     // return Observable.of(1)
     //   .map((num: number): CityWeather[] => data.list.map((item) => ({
+    return this.http.request(request)
+      .map((response: Response) => response.json())
       .map((data: OWResponse): CityWeather[] => data.list.map((item) => ({
         name: item.name,
         temp: item.main.temp,
@@ -59,7 +57,7 @@ export class OpenWeatherService {
 
   private makeParams(params: UrlParams): string {
     const appKey = `appid=${this.config.openWeatherApiKey}&`
-    return appKey + Object.keys(params).map((key) => `${key}=${params[key]}`).join('&')
+    return appKey + Object.keys(params).map((key: string) => `${key}=${params[key]}`).join('&')
   }
 
   public static buildIconURL(weather: CityWeatherItem): string {

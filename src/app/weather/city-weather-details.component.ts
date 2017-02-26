@@ -28,5 +28,4 @@ export class CityWeatherDetailsComponent implements OnInit {
           forecast.entities.find((weather: CityWeather) => weather.name === params['cityName'])))
       .subscribe((details: CityWeather) => this.details = details)
   }
-
 }

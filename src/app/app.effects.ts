@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core'
 import { Actions, Effect } from '@ngrx/effects'
 
-import {GeolocationEffects} from "./core/geolocation/geolocation.effects"
-import {OpenWeatherEffects} from "./core/openweather/openweather.effects"
+import {GeolocationEffects} from './core/geolocation/geolocation.effects'
+import {OpenWeatherEffects} from './core/openweather/openweather.effects'
 import { geoposotionToOWCoords } from './core/core.helpers'
-import {GeopositionActions} from "./core/geolocation/geolocation.actions";
-import {Geoposition} from "./core/geolocation/geolocation.model";
-import {OpenWeatherActions} from "./core/openweather/openweather.actions";
-import {CitiesInCycleOptions, CityWeather} from "./core/openweather/openweather.model";
-import {GeolocationService} from "./core/geolocation/geolocation.service";
-import {Observable} from "rxjs";
-import {OpenWeatherService} from "./core/openweather/openweather.service";
+import {GeopositionActions} from './core/geolocation/geolocation.actions';
+import {Geoposition} from './core/geolocation/geolocation.model';
+import {OpenWeatherActions} from './core/openweather/openweather.actions';
+import {CitiesInCycleOptions, CityWeather} from './core/openweather/openweather.model';
+import {GeolocationService} from './core/geolocation/geolocation.service';
+import {Observable} from 'rxjs';
+import {OpenWeatherService} from './core/openweather/openweather.service';
 
 @Injectable()
 export class AppEffects {

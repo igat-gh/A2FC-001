@@ -1,0 +1,7 @@
+<md-toolbar color="secondary">
+  <code *ngIf="position" class="position">
+      <span class="position-time">Last update: {{position.timestamp | date: "medium"}}</span>
+      <br/>
+      <span class="position-coordinates">Lat: {{position.coords.latitude}}, Lon: {{position.coords.longitude}}</span>
+  </code>
+</md-toolbar>

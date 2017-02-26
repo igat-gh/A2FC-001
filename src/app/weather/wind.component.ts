@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core'
 @Component({
   selector: 'wind',
   template: `
-      <span [rotation]="direction" class="glyphicon glyphicon-arrow-up"></span>
+      <span [rotation]="direction">→</span>
       <span>{{speed | number : '1.1-1'}}m/s</span>
     `
 })

@@ -17,14 +17,17 @@ import { OpenWeatherActions } from './core/openweather/openweather.actions'
 
 @Component({
   selector: 'app-root',
-  styleUrls: ['./app.component.css'],
+  styleUrls: [
+    '~@angular/material/core/theming/prebuilt/deeppurple-amber.css',
+    // './app.component.css'
+  ],
   template: `
     <div class='app'>
       <layout
         [loading]='loading'
         [position]='position'
         [forecast]='forecast'>
-        <router-outlet></router-outlet>
+       <router-outlet></router-outlet>
       </layout>
     </div>
   `

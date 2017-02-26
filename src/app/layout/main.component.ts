@@ -5,7 +5,7 @@ import { Component } from '@angular/core'
   styleUrls: ['./main.component.css'],
   template: `
     <div class="main">
-      <router-outlet></router-outlet>
+      <ng-content></ng-content>
     </div>
   `
 })

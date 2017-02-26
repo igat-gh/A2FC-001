@@ -1,25 +1,13 @@
-import { Component, OnInit, OnDestroy } from '@angular/core'
+import {Component, OnInit, OnDestroy} from '@angular/core'
 import {CityWeather, WeatherState} from '../core/openweather/openweather.model'
-import {Store} from "@ngrx/store";
-import {AppState} from "../app.model";
-import { Subscription } from "rxjs";
-import {Router} from "@angular/router";
+import {Store} from "@ngrx/store"
+import {AppState} from "../app.model"
+import {Subscription} from "rxjs"
+import {Router} from "@angular/router"
 
 @Component({
   styleUrls: ['./weather.component.css'],
-  template: `
-    <div class="sidebar">
-      <ul class="list-group" id="cities-list">
-        <city-weather *ngFor="let cityWeather of forecast"
-          (click)="onSelect(cityWeather)"
-          (onDelete)="deleteItem($event)"
-          (onFavorite)="setFavoriteItem($event)"
-          [weather]="cityWeather"
-          [favorite]="favoriteItem && favoriteItem.name === cityWeather.name">
-        </city-weather>
-      </ul>
-    </div>
-  `
+  templateUrl: './weather.component.html',
 })
 export class WeatherComponent implements OnInit, OnDestroy {
 
@@ -29,7 +17,7 @@ export class WeatherComponent implements OnInit, OnDestroy {
 
   forecast: CityWeather[]
 
-  constructor(private store: Store<AppState>, private router: Router) {}
+  constructor(private store: Store<AppState>, private router: Router) { }
 
   ngOnInit(): void {
     this.forecastSubscription = this.store.select('forecast')
@@ -41,11 +29,11 @@ export class WeatherComponent implements OnInit, OnDestroy {
   }
 
   onSelect(cityWeather: CityWeather): void {
-    this.router.navigate(['/cities', cityWeather.name]);
+    this.router.navigate(['/cities', cityWeather.name])
   }
 
   deleteItem(item: CityWeather): void {
-    this.forecast = this.forecast.filter(cityWeather => cityWeather.name !== item.name)
+    this.forecast = this.forecast.filter((cityWeather: CityWeather) => cityWeather.name !== item.name)
   }
 
   setFavoriteItem(item: CityWeather): void {

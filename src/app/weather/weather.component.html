@@ -1,0 +1,13 @@
+<div class="forecast">
+  <md-grid-list cols="5">
+    <md-grid-tile *ngFor="let cityWeather of forecast">
+      <city-weather
+        (onDetailsClick)="onSelect(cityWeather)"
+        (onDelete)="deleteItem($event)"
+        (onFavorite)="setFavoriteItem($event)"
+        [weather]="cityWeather"
+        [favorite]="favoriteItem && favoriteItem.name === cityWeather.name">
+      </city-weather>
+    </md-grid-tile>
+  </md-grid-list>
+</div>

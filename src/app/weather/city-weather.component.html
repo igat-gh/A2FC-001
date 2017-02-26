@@ -1,0 +1,22 @@
+<md-card class="weather-card">
+  <md-card-header>
+    <md-card-title>
+      <h3>{{weather.name}}</h3>
+      <!--<img width="50" height="50" src="{{weather.icon}}">-->
+    </md-card-title>
+  </md-card-header>
+  <md-card-content>
+    <p>
+      Temperature:
+      <span [temperatureColor]="weather.temp">{{weather.temp | kelvinToCelsius: "formatted"}}</span>
+    </p>
+    <p>
+      Wind:
+      <wind [speed]="weather.wind.speed" [direction]="weather.wind.deg"></wind>
+    </p>
+  </md-card-content>
+  <md-card-actions>
+    <button md-button (click)="handleDeleteClick(weather)">DELETE</button>
+    <button md-button (click)="handleDetailsClick(weather)">DETAILS</button>
+  </md-card-actions>
+</md-card>

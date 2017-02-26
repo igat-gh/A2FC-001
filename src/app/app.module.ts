@@ -12,7 +12,7 @@ import { CoreModule } from './core/core.module'
 import { LayoutModule } from './layout/layout.module'
 import { AppComponent } from './app.component'
 import { AppEffects } from './app.effects'
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule } from './app-routing.module'
 
 const config: Config = {
   openWeatherApiKey: environment.OPEN_WEATHER_API_KEY,

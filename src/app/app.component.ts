@@ -21,16 +21,7 @@ import { OpenWeatherActions } from './core/openweather/openweather.actions'
     '~@angular/material/core/theming/prebuilt/deeppurple-amber.css',
     // './app.component.css'
   ],
-  template: `
-    <div class='app'>
-      <layout
-        [loading]='loading'
-        [position]='position'
-        [forecast]='forecast'>
-       <router-outlet></router-outlet>
-      </layout>
-    </div>
-  `
+  templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
 

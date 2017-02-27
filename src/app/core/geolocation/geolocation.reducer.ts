@@ -2,7 +2,7 @@ import { Action } from '@ngrx/store'
 import { GeopositionState } from './geolocation.model'
 import { GeopositionActions } from './geolocation.actions'
 
-const initialState: GeopositionState = {
+export const initialState: GeopositionState = {
   loading: false,
   entity: {
     coords: {
@@ -17,7 +17,6 @@ export function geolocationReducer(
   state: GeopositionState = initialState,
   action: Action
 ): GeopositionState {
-
     switch (action.type) {
       case GeopositionActions.GET_GEOPOSITION: {
         return Object.assign({}, state, {

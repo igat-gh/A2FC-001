@@ -1,6 +1,5 @@
 
 import { GeolocationService } from './geolocation.service'
-import { Geoposition, GeoOptions, PositionError } from './geolocation.model'
 
 describe('GeolocationService', () => {
   let service: GeolocationService

@@ -6,5 +6,6 @@
 export const environment = {
   production: false,
   ENV: 'development',
+  temperatureMode: 'K',
   OPEN_WEATHER_API_KEY: 'ddb1f0abb0c8107ef81e20d834d797a2'
 };

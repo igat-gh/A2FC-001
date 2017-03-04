@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { MaterialModule } from '@angular/material'
+import { FormsModule }   from '@angular/forms'
 
 import { LoaderComponent } from './loader.component'
 import { KelvinToCelsiusPipe } from './kelvin-to-celsius.pipe'
@@ -9,7 +10,7 @@ import { RotationDirective } from './rotation.directive'
 import { UnlessDirective } from './unless.directive'
 
 @NgModule({
-  imports: [ CommonModule, MaterialModule ],
+  imports: [ CommonModule, FormsModule, MaterialModule ],
   declarations: [
     LoaderComponent,
     KelvinToCelsiusPipe,
@@ -24,7 +25,8 @@ import { UnlessDirective } from './unless.directive'
     TemperatureColorDirective,
     UnlessDirective,
     CommonModule,
-    MaterialModule
+    MaterialModule,
+    FormsModule
   ]
 })
 export class SharedModule { }

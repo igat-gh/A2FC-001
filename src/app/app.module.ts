@@ -17,7 +17,8 @@ import { AppRoutingModule } from './app-routing.module'
 const config: Config = {
   openWeatherApiKey: environment.OPEN_WEATHER_API_KEY,
   env: environment.ENV,
-  production: environment.production
+  production: environment.production,
+  temperatureMode: environment.temperatureMode
 }
 
 @NgModule({

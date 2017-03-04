@@ -1,2 +1,9 @@
 .weather-card {
 }
+.temperature {
+  border-radius: 5px;
+  padding: 2px;
+}
+.city-weather-sheet td {
+  padding: 5px;
+}

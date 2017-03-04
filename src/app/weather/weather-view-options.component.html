@@ -1,0 +1,25 @@
+<md-toolbar class="options">
+  <form>
+    <md-radio-group
+      [(ngModel)]="selectedMode"
+      (change)="onSettingsChanged()"
+      name="temperature-mode"
+      class="temperature-radio-grp">
+      <md-radio-button
+        *ngFor="let mode of temperatureModes"
+        [value]="mode"
+        class="options-radio-btn">
+        {{mode.toUpperCase()}}°
+      </md-radio-button>
+    </md-radio-group>
+    <md-input-container class="search-box">
+      <input
+        [(ngModel)]="searchCriteria"
+        (change)="onSettingsChanged()"
+        mdInput
+        name="search"
+        placeholder="Type city name"
+        value="">
+    </md-input-container>
+  </form>
+</md-toolbar>

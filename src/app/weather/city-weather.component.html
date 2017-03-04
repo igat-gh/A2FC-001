@@ -1,19 +1,52 @@
 <md-card class="weather-card">
   <md-card-header>
     <md-card-title>
-      <h3>{{weather.name}}</h3>
-      <!--<img width="50" height="50" src="{{weather.icon}}">-->
+      <h3 class="city-name">{{weather.name}}</h3>
     </md-card-title>
   </md-card-header>
   <md-card-content>
     <p>
-      Temperature:
-      <span [temperatureColor]="weather.temp">{{weather.temp | kelvinToCelsius: "formatted"}}</span>
+      <img class="city-weather-icon" width="50" height="50" src="{{weather.icon}}">
     </p>
-    <p>
-      Wind:
-      <wind [speed]="weather.wind.speed" [direction]="weather.wind.deg"></wind>
-    </p>
+    <table class="city-weather-sheet">
+      <tr>
+        <td>
+          Temperature:
+        </td>
+        <td>
+          <span *ngIf="temperatureMode === 'C'" class="temperature" [temperatureColor]="weather.temp">
+            {{weather.temp | kelvinToCelsius: "formatted"}}
+          </span>
+          <span *ngIf="temperatureMode === 'K'" class="temperature">
+            {{weather.temp}} °K
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Humidity:
+        </td>
+        <td>
+          <span>{{weather.humidity}} %</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Pressure:
+        </td>
+        <td>
+          <span>{{weather.pressure}} hPa</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Wind:
+        </td>
+        <td>
+          <wind [speed]="weather.wind.speed" [direction]="weather.wind.deg"></wind>
+        </td>
+      </tr>
+    </table>
   </md-card-content>
   <md-card-actions>
     <button md-button (click)="handleDeleteClick(weather)">DELETE</button>

@@ -43,6 +43,8 @@ export class OpenWeatherService {
       .map((data: OWResponse): CityWeather[] => data.list.map((item) => ({
         name: item.name,
         temp: item.main.temp,
+        humidity: item.main.humidity,
+        pressure: item.main.pressure,
         icon: OpenWeatherService.buildIconURL(item),
         wind: {
           deg: item.wind.deg,

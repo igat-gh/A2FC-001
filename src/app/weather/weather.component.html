@@ -1,11 +1,16 @@
 <div class="forecast">
+  <weather-view-options
+    [options]="{temperatureMode: temperatureMode}"
+    (settingsChanged)="onViewOptionsChanged($event)">
+  </weather-view-options>
   <md-grid-list cols="5">
     <md-grid-tile *ngFor="let cityWeather of forecast">
       <city-weather
-        (onDetailsClick)="onSelect(cityWeather)"
+        (onDetails)="selectItem(cityWeather)"
         (onDelete)="deleteItem($event)"
         (onFavorite)="setFavoriteItem($event)"
         [weather]="cityWeather"
+        [temperatureMode]="temperatureMode"
         [favorite]="favoriteItem && favoriteItem.name === cityWeather.name">
       </city-weather>
     </md-grid-tile>

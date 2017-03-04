@@ -5,7 +5,7 @@ import { CityWeather } from '../core/openweather/openweather.model'
   selector: 'city-weather',
   styleUrls: ['./city-weather.component.css'],
   templateUrl: 'city-weather.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CityWeatherComponent {
   @Input()
@@ -14,6 +14,9 @@ export class CityWeatherComponent {
   @Input()
   favorite: boolean
 
+  @Input()
+  temperatureMode: string
+
   @Output()
   onDelete: EventEmitter<CityWeather> = new EventEmitter()
 
@@ -21,7 +24,7 @@ export class CityWeatherComponent {
   onFavorite: EventEmitter<CityWeather> = new EventEmitter()
 
   @Output()
-  onDetailsClick: EventEmitter<CityWeather> = new EventEmitter()
+  onDetails: EventEmitter<CityWeather> = new EventEmitter()
 
   handleDeleteClick(): void {
     this.onDelete.emit(this.weather)
@@ -32,6 +35,6 @@ export class CityWeatherComponent {
   }
 
   handleDetailsClick(): void {
-    this.onDetailsClick.emit(this.weather)
+    this.onDetails.emit(this.weather)
   }
 }
